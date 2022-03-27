@@ -5,6 +5,7 @@
 
 * [HTML](./answers/02)
 * [CSS](./answers/03)
+* [JS](./answers/06)
 
 #### Projects
 
