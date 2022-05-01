@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <title>Index</title>
+</head>
+<body>
+    <script>
+        let cityName = 'київ';
+        let cityNameCapitalized;
+        // ще варіанти: "лЬвів", "одеСА", "хАРКіВ"
+
+        // 1
+        let cityNameFirstLetter  = cityName.substring( 0, 1 ).toUpperCase();
+        let cityNameOtherLetters = cityName.substring( 1 ).toLowerCase();
+        cityNameCapitalized      = cityNameFirstLetter + cityNameOtherLetters;
+
+        console.log( 'Варіант 1' );
+        console.log( cityNameCapitalized );
+
+        // 2
+        let cityNameLower   = cityName.toLowerCase();
+        cityNameCapitalized = cityNameLower.substring( 0, 1 ).toUpperCase() + cityNameLower.substring( 1 );
+
+        console.log( 'Варіант 2' );
+        console.log( cityNameCapitalized );
+
+        // 3
+        cityNameCapitalized = cityName[0].toUpperCase() + cityName.substring( 1 ).toLowerCase();
+
+        console.log( 'Варіант 3' );
+        console.log( cityNameCapitalized );
+    </script>
+</body>
+</html>
