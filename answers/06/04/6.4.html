@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <title>Index</title>
+</head>
+<body>
+    <script>
+        let age = 15,
+            withParents = true;
+
+        // Переписати цей тернарний запис:
+        // let accessAllowed = ( age > 18 ) ? 'Yes' : ( withParents ? 'Yes' : 'No' );
+
+        // Варіант 1 (через 1 if)
+        let accessAllowed1 = 'No';
+
+        if( age > 18 || withParents )
+        {
+            accessAllowed1 = 'Yes'
+        }
+
+        console.log( 'accessAllowed1', accessAllowed1 );
+
+        // Варіант 2 (через else-if-else)
+        let accessAllowed2;
+
+        if( age > 18 )
+        {
+            accessAllowed2 = 'Yes';
+        }
+        else
+        {
+            if( withParents )
+            {
+                accessAllowed2 = 'Yes';
+            }
+            else
+            {
+                accessAllowed2 = 'No';
+            }
+        }
+
+        console.log( 'accessAllowed2', accessAllowed2 );
+
+        // Варіант 3 (через else-if)
+        let accessAllowed3 = 'No';
+
+        if( age > 18 )
+        {
+            accessAllowed3 = 'Yes';
+        }
+        else if( withParents )
+        {
+            accessAllowed3 = 'Yes';
+        }
+
+        console.log( 'accessAllowed3', accessAllowed3 );
+    </script>
+</body>
+</html>
