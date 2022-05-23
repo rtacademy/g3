@@ -27,15 +27,14 @@
                     return cityNameFirstLetter + cityNameOtherLetters;
 
                 case "object":
-                    let resultArray      = [];
                     const cityNamesArray = Object.values( cityName );
 
-                    if( cityNamesArray.length )
+                    if( !cityNamesArray.length )
                     {
-                        resultArray = cityNamesArray.map( item => capitalize( item ) );
+                        return [];
                     }
 
-                    return resultArray;
+                    return cityNamesArray.map( item => capitalize( item ) );
 
                 default:
                     return "";
