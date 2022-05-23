@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <title>#06.06</title>
+</head>
+<body>
+    <div style="background:#f1f1f1; color:#111; padding:.4rem .5rem; font:1rem/1.5rem Verdana,sans-serif;">
+        Відкрийте вкладку Консоль у Chrome DevTools<br>
+        <code>Ctrl+Shift+J</code> / <code>F12</code><br>
+        або <code>⌘+⌥+J</code> для Mac
+    </div>
+
+    <script>
+        const capitalize = ( cityName ) =>
+        {
+            switch( typeof cityName )
+            {
+                case "string":
+                    if( cityName.length < 3 )
+                    {
+                        return "";
+                    }
+
+                    const cityNameFirstLetter  = cityName.substring( 0, 1 ).toUpperCase();
+                    const cityNameOtherLetters = cityName.substring( 1 ).toLowerCase();
+                    return cityNameFirstLetter + cityNameOtherLetters;
+
+                case "object":
+                    let resultArray      = [];
+                    const cityNamesArray = Object.values( cityName );
+
+                    if( cityNamesArray.length )
+                    {
+                        resultArray = cityNamesArray.map( item => capitalize( item ) );
+                    }
+
+                    return resultArray;
+
+                default:
+                    return "";
+            }
+        };
+
+        // 6.6
+        capitalize('киїВ') === 'Київ' ? console.info( 'Київ' ) : console.error( 'Київ' );
+        capitalize('лЬвів') === 'Львів' ? console.info( 'Львів' ) : console.error( 'Львів' );
+        capitalize('одеСА') === 'Одеса' ? console.info( 'Одеса' ) : console.error( 'Одеса' );
+        capitalize('хАРКіВ') === 'Харків' ? console.info( 'Харків' ) : console.error( 'Харків' );
+
+        // 6.6*
+        capitalize(1234567) === '' ? console.info( '1234567' ) : console.error( '1234567' );
+        capitalize(999999n) === '' ? console.info( '999999n' ) : console.error( '999999n' );
+        capitalize(false) === '' ? console.info( 'false' ) : console.error( 'false' );
+
+        // 6.6**
+        let correctResult;
+
+        correctResult = [ 'Київ', 'Львів', 'Одеса', 'Харків' ];
+        capitalize( [ 'киЇв', 'льВІв', 'одеСА', 'хАркІв' ] ).toString() === correctResult.toString() ? console.info( correctResult ) : console.error( correctResult );
+
+        // 6.6***
+        correctResult = [ [ 'Київ', 'Львів' ], [ 'Одеса' ], 'Харків', [ "Стокгольм", "Париж" ] ];
+        capitalize( [ [ 'київ', 'львів' ], [ 'одеса' ], 'харків', { "q" : "париж", 2 : "стокгольм" } ] ).toString() === correctResult.toString() ? console.info( correctResult ) : console.error( correctResult );
+    </script>
+</body>
+</html>
