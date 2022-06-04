@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <title>#06.08</title>
+</head>
+<body>
+    <div style="background:#f1f1f1; color:#111; padding:.4rem .5rem; font:1rem/1.5rem Verdana,sans-serif;">
+        Відкрийте вкладку Консоль у Chrome DevTools<br>
+        <code>Ctrl+Shift+J</code> / <code>F12</code><br>
+        або <code>⌘+⌥+J</code> для Mac
+    </div>
+
+    <script>
+        const getRandomInt = ( min, max ) =>
+        {
+            min = parseInt( min.toString() );
+            max = parseInt( max.toString() );
+
+            if( min > max )
+            {
+                let temp = min;
+                min = max;
+                max = temp;
+            }
+
+            return Math.round( Math.random() * ( max - min ) ) + min;
+        };
+
+        // 6.8
+        let randomInt;
+
+        randomInt = getRandomInt( 1, 100 );
+        console.log( 'Випадкове число: ' + randomInt );
+        randomInt = getRandomInt( 25, 1000 );
+        console.log( 'Випадкове число: ' + randomInt );
+        randomInt = getRandomInt( 25, 10 );
+        console.log( 'Випадкове число: ' + randomInt );
+        randomInt = getRandomInt( -100, 100 );
+        console.log( 'Випадкове число: ' + randomInt );
+
+        // 6.8*
+        randomInt = getRandomInt( 20.5, 100.1 );
+        console.log( 'Випадкове число: ' + randomInt );
+    </script>
+</body>
+</html>
