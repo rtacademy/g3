@@ -2,7 +2,7 @@
 <html lang="uk">
 <head>
     <meta charset="utf-8">
-    <title>#06.11</title>
+    <title>#06.12</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
     body {
@@ -130,6 +130,19 @@ const setSuccessStyle = function( element )
     element.style.background    = '#ffffff';
 };
 
+const validateNumber = function( operand )
+{
+    return !Number.isNaN( operand )
+        && operand.toString().length > 0
+        && operand.toString().length <= 16
+        && /^-?[0-9]+(\.[0-9]+)?$/.test( operand.toString() );
+};
+
+const validateAction = function( action )
+{
+    return action.length > 0 && action.length <= 14 && /^[a-z]+$/.test( action );
+};
+
 const calculate = function()
 {
     // отримання елементів
@@ -153,7 +166,7 @@ const calculate = function()
     let hasErrors = false;
 
     // базова валідація полів з індикацієї (та повернення до нормально вигляду у випадку якщо все ОК)
-    if( !Number.isNaN( operand1 ) && operand1.toString().length > 0 && operand1.toString().length <= 16 )      // проста перевірка на NaN та заповненність поля (краще зробити регулярним виразом, #06.12)
+    if( validateNumber( operand1 ) )                                // перевірка поля на NaN та регулярним виразом
     {
         // встановлюємо значення в операнд1 та операнд2, бо внаслідок перетворення через parseFloat() можуть бути зміни
         elementOperand1.value = operand1;
@@ -168,7 +181,7 @@ const calculate = function()
         hasErrors = true;
     }
 
-    if( !Number.isNaN( operand2 ) && operand2.toString().length > 0 && operand2.toString().length <= 16 )      // проста перевірка на NaN та заповненність поля (краще зробити регулярним виразом, #06.12)
+    if( validateNumber( operand2 ) )                                // перевірка поля на NaN та регулярним виразом
     {
         // встановлюємо значення в операнд1 та операнд2, бо внаслідок перетворення через parseFloat() можуть бути зміни
         elementOperand2.value = operand2;
@@ -183,7 +196,7 @@ const calculate = function()
         hasErrors = true;
     }
 
-    if( action.length > 0 && action.length <= 14 )                                                      // проста перевірка на заповненність поля (краще зробити регулярним виразом, #06.12)
+    if( validateAction( action ) )                                  // перевірка поля регулярним виразом
     {
         // змінюємо стилі відображення поля на коректні/валідні
         setSuccessStyle( elementAction );
