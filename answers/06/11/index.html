@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <title>#06.11</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    body {
+        font: normal 1rem/1.5rem Verdana,sans-serif;
+        color: #000;
+        margin: 0;
+        padding: 0;
+    }
+
+    #simple-calculator {
+        display: block;
+        width: 54rem;
+        margin: calc(50vh - 3.6rem) auto 0 auto;
+    }
+
+        #simple-calculator ul {
+            list-style: none;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-content: center;
+            justify-content: center;
+            align-items: flex-end;
+            margin: 0;
+            padding: 0;
+        }
+
+            #simple-calculator ul li {
+                flex: 1 0 auto;
+                padding: 0 0.5rem;
+            }
+
+                #simple-calculator ul li label,
+                #simple-calculator ul li input,
+                #simple-calculator ul li select {
+                    display: block;
+                    font-size: 1rem;
+                    line-height: 1.5rem;
+                }
+
+                #simple-calculator ul li label {
+                    color: #8e8e8e;
+                }
+
+                #simple-calculator ul li input,
+                #simple-calculator ul li select {
+                    border: 0.05rem solid #a0a0a0;
+                    border-radius: 0.2rem;
+                    margin: 0;
+                    outline: none;
+                    padding: 0.25rem 0.5rem;
+                    width: 10rem;
+                }
+
+                #simple-calculator ul li select {
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    appearance: none;
+                    cursor: pointer;
+                    background: #fff;
+                }
+
+                #simple-calculator ul li input#calculate {
+                    background: #0085fc;
+                    color: #fff;
+                    width: 5rem;
+                    border: 0.05rem solid #0085fc;
+                    border-radius: 0.2rem;
+                }
+
+                #simple-calculator ul li input#calculate:hover {
+                    background: #118eff;
+                }
+
+                #simple-calculator ul li input#calculate:active {
+                    background: #007ae7;
+                }
+    </style>
+</head>
+<body>
+
+<form id="simple-calculator">
+    <ul>
+        <li>
+            <label for="operand1">Операнд 1</label>
+            <input type="text" id="operand1" value="" placeholder="Перше число" minlength="0" maxlength="16">
+        </li>
+        <li>
+            <label for="action">Дія</label>
+            <select id="action">
+                <option value="" disabled selected>Оберіть дію</option>
+                <option value="addition">+</option>
+                <option value="subtraction">-</option>
+                <option value="multiplication">*</option>
+                <option value="division">/</option>
+                <option value="modulus">%</option>
+                <option value="exponentiation">**</option>
+            </select>
+        </li>
+        <li>
+            <label for="operand2">Операнд 2</label>
+            <input type="text" id="operand2" value="" placeholder="Друге число" minlength="0" maxlength="16">
+        </li>
+        <li>
+            <input type="submit" id="calculate" value="=">
+        </li>
+        <li>
+            <label for="result">Результат</label>
+            <input type="text" id="result" value="" disabled readonly>
+        </li>
+    </ul>
+</form>
+
+<script>
+
+const setErrorStyle = function( element )
+{
+    element.style.border        = '0.05rem solid #800000';
+    element.style.background    = '#fff5f5';
+};
+
+const setSuccessStyle = function( element )
+{
+    element.style.border        = '0.05rem solid #a0a0a0';
+    element.style.background    = '#ffffff';
+};
+
+const calculate = function()
+{
+    // отримання елементів
+    const elementOperand1  = document.getElementById('operand1');
+    const elementOperand2  = document.getElementById('operand2');
+    const elementAction    = document.getElementById('action');
+    const elementResult    = document.getElementById('result');
+
+    // перевірка на існування елементів
+    if( !( elementOperand1 && elementOperand2 && elementAction && elementResult ) )
+    {
+        return false;
+    }
+
+    // отримання значень
+    const operand1          = parseFloat( elementOperand1.value );
+    const operand2          = parseFloat( elementOperand2.value );
+    const action            = elementAction.value.toString();
+
+    // змінна-"прапорець" для наявності помилок
+    let hasErrors = false;
+
+    // базова валідація полів з індикацієї (та повернення до нормально вигляду у випадку якщо все ОК)
+    if( !Number.isNaN( operand1 ) && operand1.toString().length > 0 && operand1.toString().length <= 16 )      // проста перевірка на NaN та заповненність поля (краще зробити регулярним виразом, #4.15)
+    {
+        // встановлюємо значення в операнд1 та операнд2, бо внаслідок перетворення через parseFloat() можуть бути зміни
+        elementOperand1.value = operand1;
+
+        // змінюємо стилі відображення поля на коректні/валідні
+        setSuccessStyle( elementOperand1 );
+    }
+    else
+    {
+        // змінюємо стилі відображення поля на помилкові
+        setErrorStyle( elementOperand1 );
+        hasErrors = true;
+    }
+
+    if( !Number.isNaN( operand2 ) && operand2.toString().length > 0 && operand2.toString().length <= 16 )      // проста перевірка на NaN та заповненність поля (краще зробити регулярним виразом, #4.15)
+    {
+        // встановлюємо значення в операнд1 та операнд2, бо внаслідок перетворення через parseFloat() можуть бути зміни
+        elementOperand2.value = operand2;
+
+        // змінюємо стилі відображення поля на коректні/валідні
+        setSuccessStyle( elementOperand2 );
+    }
+    else
+    {
+        // змінюємо стилі відображення поля на помилкові
+        setErrorStyle( elementOperand2 );
+        hasErrors = true;
+    }
+
+    if( action.length > 0 && action.length <= 14 )                                                      // проста перевірка на заповненність поля (краще зробити регулярним виразом, #4.15)
+    {
+        // змінюємо стилі відображення поля на коректні/валідні
+        setSuccessStyle( elementAction );
+    }
+    else
+    {
+        // змінюємо стилі відображення поля на помилкові
+        setErrorStyle( elementAction );
+        hasErrors = true;
+    }
+
+    if( operand2 === 0 )
+    {
+        // змінюємо стилі відображення поля на помилкові
+        setErrorStyle( elementOperand2 );
+        hasErrors = true;
+    }
+
+    let result     = "";                         // результат обрахунку (по-замовчуванню порожнє значення)
+
+    // виконуємо обрахунок тільки якщо були відсутні помилки
+    if( !hasErrors )
+    {
+        const floating_digits_number = 4;       // обмеження до кількості знаків (для вирішення проблем чисел с плаваючою/рухомою комою)
+
+        switch( action )
+        {
+            case 'addition':                    // +
+                result = parseFloat( ( operand1 + operand2 ).toFixed( floating_digits_number ) );
+                break;
+
+            case 'subtraction':                 // -
+                result = parseFloat( ( operand1 - operand2 ).toFixed( floating_digits_number ) );
+                break;
+
+            case 'multiplication':              // *
+                result = parseFloat( ( operand1 * operand2 ).toFixed( floating_digits_number ) );
+                break;
+
+            case 'division':                    // /
+                result = parseFloat( ( operand1 / operand2 ).toFixed( floating_digits_number ) );
+                break;
+
+            case 'modulus':                     // %
+                result = parseFloat( ( operand1 % operand2 ).toFixed( floating_digits_number ) );
+                break;
+
+            case 'exponentiation':              // **
+                result = parseFloat( ( operand1 ** operand2 ).toFixed( floating_digits_number ) );
+                break;
+
+            default:                            // незрозуміла дія в action - відображаємо помилку
+                setErrorStyle( elementAction );
+        }
+    }
+
+    // встановлюємо значення в результат (якщо будуть помилки (hasErrors), то буде встановлено порожнє значення "")
+    elementResult.value = result;
+
+    // "return false" необхідне для зупинення процедури Submit форми
+    return false;
+};
+
+const form      = document.getElementById('simple-calculator');
+// обробка submit форми (натиснення Enter спричине Submit форми, бо присутній input type=submit)
+form.onsubmit   = calculate;
+
+const buttonCalc   = document.getElementById('calculate');
+// обробка натискання на кнопку "="
+buttonCalc.onclick = calculate;
+
+</script>
+
+</body>
+</html>
