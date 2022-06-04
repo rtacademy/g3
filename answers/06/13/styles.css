@@ -1,0 +1,96 @@
+body {
+    font: normal 1rem/1.5rem Verdana,sans-serif;
+    color: #000;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    width: 40rem;
+    margin: calc(50vh - 7.3rem) auto 0 auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+    main #datetime-diff  {
+        width: 40%;
+    }
+
+    #datetime-diff-form ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+        #datetime-diff-form ul li {
+            margin: 0 0 1.5rem 0;
+        }
+
+            #datetime-diff-form ul li label {
+                color: #444;
+            }
+
+            #datetime-diff-form ul li label,
+            #datetime-diff-form ul li input {
+                display: block;
+                font-size: 1rem;
+                line-height: 1.5rem;
+            }
+
+            #datetime-diff-form ul li input {
+                border: 0.1rem solid #ccc;
+                border-radius: 0.3rem;
+                padding: 0.2rem 0.5rem;
+            }
+
+            #datetime-diff-form ul li input.error {
+                border: 0.1rem solid #800000;
+                border-radius: 0.3rem;
+                background: #fff5f5;
+            }
+
+            #datetime-diff-form #calculate {
+                background: #1184f8;
+                border: 0.1rem solid #1184f8;
+                border-radius: 0.3rem;
+                color: #fff;
+                padding: 0.5rem 1rem;
+                font-size: 1.1rem;
+                width: 100%;
+            }
+
+            #datetime-diff-form #calculate:hover {
+                background: #118eff;
+            }
+
+            #datetime-diff-form #calculate:active {
+                background: #007ae7;
+            }
+
+    main #result {
+        width: 50%;
+        border: 0.1rem solid #e0e0e2;
+        border-radius: 0.3rem;
+        background: #f8f9fa;
+        margin: 0;
+    }
+        main #result .title {
+            font-size: 1.1rem;
+            background: #f0f1f2;
+            border-bottom: 0.1rem solid #e0e0e2;
+            padding: 0.5rem 1rem;
+        }
+
+        main #result .diff {
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+        }
+
+            main #result .diff strong {
+                color: #1184f8;
+                font-weight: normal;
+                white-space: nowrap;
+            }
