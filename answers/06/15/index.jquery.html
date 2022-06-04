@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <title>#06.15 (jQuery)</title>
+    <script src="./jquery.js"></script>
+</head>
+<body>
+    <div style="background:#f1f1f1; color:#111; padding:.4rem .5rem; font:1rem/1.5rem Verdana,sans-serif;">
+        Відкрийте вкладку Консоль у Chrome DevTools<br>
+        <code>Ctrl+Shift+J</code> / <code>F12</code><br>
+        або <code>⌘+⌥+J</code> для Mac
+    </div>
+
+    <script>
+        $(document).ready(
+            () =>
+            {
+                $.ajax(
+                    {
+                        'method'     : 'GET',                   // метод GET
+                        'url'        : './countries.json',      // URL
+                        'dataType'   : 'json',                  // очікуємо відповідь у типі JSON
+                        'success'    : function( jsonContents ) // функція, що виконається у разі успіху
+                        {                                       // jsonContents - це параметр що буде містити дані відповіді сервера
+                            console.log( jsonContents );        // відображаємо отримані дані з сервера в консолі
+                        },
+                        'error'      : function( jqXHR, textStatus, errorThrown )   // функція, що виконається у разі помилки
+                        {
+                            console.error( textStatus );        // відображаємо текст помилки в консолі браузера
+                        },
+                    }
+                );
+            }
+        );
+    </script>
+</body>
+</html>

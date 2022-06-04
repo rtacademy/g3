@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <title>#06.15 (XMLHttpRequest)</title>
+</head>
+<body>
+    <div style="background:#f1f1f1; color:#111; padding:.4rem .5rem; font:1rem/1.5rem Verdana,sans-serif;">
+        Відкрийте вкладку Консоль у Chrome DevTools<br>
+        <code>Ctrl+Shift+J</code> / <code>F12</code><br>
+        або <code>⌘+⌥+J</code> для Mac
+    </div>
+
+    <script>
+        // створюємо новий об'єкт XMLHttpRequest
+        let xhr = new XMLHttpRequest();
+
+        // налаштовуємо на GET-запит для URL /countries.json
+        // xhr.open( method, URL, [async, user, password] )
+        xhr.open( 'GET', './countries.json' );
+
+        // очікуємо відповідь у типі JSON
+        xhr.responseType = 'json';
+
+        // надсилаємо запит
+        xhr.send();
+
+        // додаємо функцію для обробки результата відповіді.
+        // "onload" відбувається, якщо отримано будь-яку
+        // відповідь, включаючи відповіді з HTTP-помилкою
+        xhr.onload = function()
+        {
+            // після відповіді сервера ми можемо отримати
+            // результат запиту в наступних властивостях xhr:
+            // .status     - код стану HTTP (число): 200, 404,...
+            // .statusText - повідомлення про стан відповіді HTTP
+            // .response   - тіло відповіді сервера
+
+            if( xhr.status === 200 )            // HTTP = 200, все ОК
+            {
+                console.log( xhr.response );        // відображаємо отримані дані з сервера в консолі
+            }
+            else                                // HTTP не 200, обробляємо як помилку
+            {
+                console.error( 'Сталася помилка ' + xhr.status + ': ' + xhr.statusText );
+            }
+        };
+
+        // додаємо функцію для обробки помилки підключення до сервера.
+        // "onerror" відбувається, якщо запит не може бути виконаний,
+        // наприклад, відсутнє з'єднання або некоректний URL
+        xhr.onerror = function()
+        {
+            console.error( 'Сталася помилка при виконанні запита до сервера' );
+        };
+    </script>
+</body>
+</html>

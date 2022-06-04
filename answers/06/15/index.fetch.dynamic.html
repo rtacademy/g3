@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <title>#06.15 (Fetch)</title>
+    <style>
+        body {
+            font: normal 1rem/1.5rem Verdana,sans-serif;
+            color: #000;
+            margin: 0;
+            padding: 0;
+        }
+        main {
+            margin: calc(50vh - 7.3rem) auto 0 auto;
+        }
+            main > div {
+                display: flex;
+                flex-wrap: nowrap;
+                align-content: center;
+                justify-content: center;
+                align-items: center;
+            }
+        #country-input {
+            display: block;
+            font-size: 1.5rem;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="country">
+            ...
+        </div>
+    </main>
+
+    <script>
+        ( async function()
+        {
+            // GET-запит для URL countries.json
+            let response = await fetch( './countries.json' );
+
+            if( response.ok )                       // HTTP = 200, все ОК
+            {
+                const jsonContents = await response.json();     // читаємо відповідь в форматі JSON
+
+                const inputCountry = document.createElement( 'input' );
+                inputCountry.setAttribute( 'type', 'text' );
+                inputCountry.setAttribute( 'id', 'country-input' );
+                inputCountry.setAttribute( 'list', 'countries-list' );
+                inputCountry.setAttribute( 'value', '' );
+                inputCountry.setAttribute( 'minlength', '1' );
+                inputCountry.setAttribute( 'maxlength', '44' );
+                inputCountry.setAttribute( 'required', 'required' );
+
+                const datalistCountries = document.createElement( 'datalist' );
+                datalistCountries.setAttribute( 'id', 'countries-list' );
+
+                jsonContents.forEach(
+                    ( item ) =>
+                    {
+                        if( item && item.Name )
+                        {
+                            const optionItem = document.createElement( 'option' );
+                            optionItem.setAttribute( 'value', item.Name );
+                            optionItem.append( document.createTextNode( item.Name ) );
+                            datalistCountries.append( optionItem );
+                        }
+                    }
+                );
+
+                const divCountry = document.getElementsByClassName( 'country' )[ 0 ] || null;
+
+                if( divCountry )
+                {
+                    divCountry.replaceChildren( inputCountry, datalistCountries );
+                }
+            }
+            else                                    // HTTP не 200, обробляємо як помилку
+            {
+                console.error( 'Сталася помилка ' + response.status + ': ' + response.statusText );
+            }
+        } )();
+    </script>
+</body>
+</html>

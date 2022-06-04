@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <title>#06.15 (Fetch)</title>
+</head>
+<body>
+    <div style="background:#f1f1f1; color:#111; padding:.4rem .5rem; font:1rem/1.5rem Verdana,sans-serif;">
+        Відкрийте вкладку Консоль у Chrome DevTools<br>
+        <code>Ctrl+Shift+J</code> / <code>F12</code><br>
+        або <code>⌘+⌥+J</code> для Mac
+    </div>
+
+    <script>
+        ( async function()
+        {
+            // GET-запит для URL countries.json
+            let response = await fetch( './countries.json' );
+
+            if( response.ok )                       // HTTP = 200, все ОК
+            {
+                const jsonContents = await response.json();     // читаємо відповідь в форматі JSON
+
+                console.log( jsonContents );                    // відображаємо отримані дані з сервера в консолі
+            }
+            else                                    // HTTP не 200, обробляємо як помилку
+            {
+                console.error( 'Сталася помилка ' + response.status + ': ' + response.statusText );
+            }
+        } )();
+    </script>
+</body>
+</html>
