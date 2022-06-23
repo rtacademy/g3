@@ -1,0 +1,75 @@
+server {
+    listen              80 default_server;
+    server_name         "" _;
+
+    #access_log         /var/log/nginx/access.log main;
+    #access_log         off;
+    #error_log       	/var/log/nginx/error.log;
+
+    #########################################################################################################
+
+    root                /var/www;
+    index               index.html index.php;
+    charset             utf-8;
+
+    #########################################################################################################
+
+    # favicon.ico conf
+    location = /favicon.ico {
+        try_files 	    /favicon.ico    @favicon_empty;
+        expires	        7d;
+        access_log      off;
+        log_not_found   off;
+    }
+
+    location @favicon_empty {
+        empty_gif;
+        expires	        7d;
+        access_log      off;
+        log_not_found   off;
+    }
+
+    #########################################################################################################
+
+    # static resources
+    location ~* ^.+\.(htm|html|css|js|json)$ {
+        access_log      off;
+        autoindex       off;
+        expires         -1;
+        add_header      Cache-Control       'public';
+    }
+
+    location ~* ^.+\.(ico|txt|jpg|jpeg|png|gif|svg|map|eot|otf|woff|woff2|ttf|tif|tiff|pdf|mp4|ogg|ogv|swf|p7b|xml)$ {
+        access_log      off;
+        autoindex       off;
+        expires         1h;
+        add_header      Cache-Control       'public';
+    }
+
+    #########################################################################################################
+
+    location / {
+
+    }
+
+    location ~ \.php$ {
+	    try_files       $uri =404;
+        fastcgi_pass    rtacademy_app:9000;
+        fastcgi_index   index.php;
+        include         fastcgi_params;
+        fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param   PATH_INFO $fastcgi_path_info;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    }
+
+    #########################################################################################################
+
+    location ~ /\. {
+        deny            all;
+        access_log      off;
+        log_not_found   off;
+        return          404;
+    }
+
+    #########################################################################################################
+}

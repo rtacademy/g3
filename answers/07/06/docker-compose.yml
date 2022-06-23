@@ -1,0 +1,91 @@
+# Services
+services:                                         # ОПИС СЕРВІСІВ
+
+  # MariaDB Service
+  rtacademy_database_mariadb:                     # назва сервіса
+    image: mariadb:latest                         # основний образ та версія
+    container_name: rtacademy_database_mariadb    # назва контейнера
+    restart: unless-stopped                       # політика перезавантажень сервіса (пока не буде зупинено)
+    volumes:                                      # монтування томів (persistent storage) всередину контейнера
+      - rtacademy_database_mariadb_data:/var/lib/mysql
+    ports:                                        # список відкритих назовні портів <hostPort>:<containerPort>
+      - "127.0.0.1:3306:3306/tcp"                 # (відкрити підʼєднання на порт 3306 за межами контейнера тільки з локальної адреси IPv4 за протоколом TCP)
+    environment:                                  # змінні оточення
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: secretpassword
+      MYSQL_DATABASE: helloworld
+      MYSQL_USER: helloworld
+      MYSQL_PASSWORD: helloworld
+      TZ: Europe/Kiev
+    networks:                                     # локальна мережа контейнера
+      - rtacademy_network
+
+  # PostgreSQL Service
+  rtacademy_database_postgresql:                  # назва сервіса
+    image: postgres:latest                        # основний образ та версія
+    container_name: rtacademy_database_postgresql # назва контейнера
+    restart: unless-stopped                       # політика перезавантажень сервіса (пока не буде зупинено)
+    volumes:                                      # монтування томів (persistent storage) всередину контейнера
+      - rtacademy_database_postgresql_data:/var/lib/postgresql
+    ports:                                        # список відкритих назовні портів <hostPort>:<containerPort>
+      - "127.0.0.1:5432:5432/tcp"                 # (відкрити підʼєднання на порт 5432 за межами контейнера тільки з локальної адреси IPv4 за протоколом TCP)
+    environment:
+      POSTGRES_DB: helloworld
+      POSTGRES_USER: helloworld
+      POSTGRES_PASSWORD: helloworld
+      PGTZ: Europe/Kiev
+      TZ: Europe/Kiev
+    networks:                                     # локальна мережа контейнера
+      - rtacademy_network
+
+  # PHP-FPM Service
+  rtacademy_app:                                  # назва сервіса
+    build:                                        # опції збирання
+      context: ./rtacademy_app                    # директорія для збірки (source directory)
+    image: rtacademy_app:latest                   # основний образ та версія
+    container_name: rtacademy_app                 # назва контейнера
+    restart: unless-stopped                       # політика перезавантажень сервіса (допоки не буде зупинено)
+    working_dir: /var/www                         # робоча директорія
+    volumes:                                      # монтування томів (persistent storage) всередину контейнера
+      - ./:/var/www:rw                           # тут необхідно в лівому аргументі (до двокрапки) вказати коректний шлях до ваших файлів
+    depends_on:                                   # цей сервіс залежить від наступних сервісів
+      - rtacademy_database_mariadb
+      - rtacademy_database_postgresql
+    environment:
+      TZ: Europe/Kiev
+    networks:                                     # локальна мережа контейнера
+      - rtacademy_network
+
+  # Nginx Service
+  rtacademy_web:                                  # назва сервіса
+    build:                                        # опції збирання
+      context: ./rtacademy_web                    # директорія для збірки (source directory)
+    image: rtacademy_web:latest                   # основний образ та версія
+    container_name: rtacademy_web                 # назва контейнера
+    restart: unless-stopped                       # політика перезавантажень сервіса (допоки не буде зупинено)
+    working_dir: /var/www                         # робоча директорія
+    volumes:                                      # монтування томів (persistent storage) всередину контейнера
+      - ./:/var/www:ro                           # тут необхідно в лівому аргументі (до двокрапки) вказати коректний шлях до ваших файлів
+    ports:                                        # список відкритих назовні портів <hostPort>:<containerPort>
+      - "0.0.0.0:80:80/tcp"                       # (відкрити підʼєднання на порт 80 за межами контейнера з будь-якої адреси IPv4 за протоколом TCP)
+      - "0.0.0.0:443:443/tcp"                     # (відкрити підʼєднання на порт 443 за межами контейнера з будь-якої адреси IPv4 за протоколом TCP)
+    depends_on:                                   # цей сервіс залежить від наступних сервісів
+      - rtacademy_app
+    environment:
+      TZ: Europe/Kiev
+    networks:                                     # локальна мережа контейнера
+      - rtacademy_network
+
+# Networks
+networks:                                         # ОПИС МЕРЕЖ
+  rtacademy_network:
+    name: rtacademy_network                       # назва мережі
+    driver: bridge                                # тип підʼєднання (default)
+
+# Volumes
+volumes:                                          # ОПИС ТОМІВ
+  rtacademy_database_mariadb_data:
+    name: rtacademy_database_mariadb_data         # назва тому
+  rtacademy_database_postgresql_data:
+    name: rtacademy_database_postgresql_data      # назва тому
+
