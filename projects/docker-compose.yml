@@ -11,12 +11,12 @@ services:                                         # ОПИС СЕРВІСІВ
     ports:
       - "127.0.0.1:3306:3306/tcp"
     environment:
-      MYSQL_ROOT_USER: root
-      MYSQL_ROOT_PASSWORD: secretpassword
-      MYSQL_DATABASE: blog
-      MYSQL_USER: blog
-      MYSQL_PASSWORD: blogpassword
-      TZ: Europe/Kiev
+      - MYSQL_ROOT_USER=root
+      - MYSQL_ROOT_PASSWORD=secretpassword
+      - MYSQL_DATABASE=blog
+      - MYSQL_USER=blog
+      - MYSQL_PASSWORD=blogpassword
+      - TZ=Europe/Kiev
     networks:
       - rtacademy_blog_network
     deploy:
@@ -25,50 +25,51 @@ services:                                         # ОПИС СЕРВІСІВ
           memory: "2048M"
 
   # PHP-FPM Services
-  rtacademy_blog_app_frontend:
-    build:
-      context: docker/rtacademy_blog_app
-    image: rtacademy_blog_app:latest
-    container_name: rtacademy_blog_app_frontend
-    restart: unless-stopped
-    working_dir: /var/www/blog
-    volumes:
-      - ./blog:/var/www/blog:rw
-    depends_on:
-      - rtacademy_blog_database_mariadb
-    environment:
-      TZ: Europe/Kiev
-    networks:
-      - rtacademy_blog_network
-    deploy:
-      resources:
-        limits:
-          memory: "512M"
-
-  rtacademy_blog_app_admin:
-    build:
-      context: docker/rtacademy_blog_app
-    image: rtacademy_blog_app:latest
-    container_name: rtacademy_blog_app_admin
-    restart: unless-stopped
-    working_dir: /var/www/blog_admin
-    volumes:
-      - ./blog_admin:/var/www/blog_admin:rw
-    depends_on:
-      - rtacademy_blog_database_mariadb
-    environment:
-      TZ: Europe/Kiev
-    networks:
-      - rtacademy_blog_network
-    deploy:
-      resources:
-        limits:
-          memory: "512M"
+#  rtacademy_blog_app_frontend:
+#    build:
+#      context: docker/rtacademy_blog_app
+#    image: rtacademy_blog_app:latest
+#    container_name: rtacademy_blog_app_frontend
+#    restart: unless-stopped
+#    working_dir: /var/www/blog
+#    volumes:
+#      - ./blog:/var/www/blog:rw
+#    depends_on:
+#      - rtacademy_blog_database_mariadb
+#    environment:
+#      TZ: Europe/Kiev
+#    networks:
+#      - rtacademy_blog_network
+#    deploy:
+#      resources:
+#        limits:
+#          memory: "512M"
+#
+#  rtacademy_blog_app_admin:
+#    build:
+#      context: docker/rtacademy_blog_app
+#    image: rtacademy_blog_app:latest
+#    container_name: rtacademy_blog_app_admin
+#    restart: unless-stopped
+#    working_dir: /var/www/blog_admin
+#    volumes:
+#      - ./blog_admin:/var/www/blog_admin:rw
+#    depends_on:
+#      - rtacademy_blog_database_mariadb
+#    environment:
+#      TZ: Europe/Kiev
+#    networks:
+#      - rtacademy_blog_network
+#    deploy:
+#      resources:
+#        limits:
+#          memory: "512M"
 
   rtacademy_blog_app_api:
     build:
-      context: docker/rtacademy_blog_app
-    image: rtacademy_blog_app:latest
+      context: ./
+      dockerfile: docker/rtacademy_blog_app_api/Dockerfile
+    image: rtacademy_blog_app_api:latest
     container_name: rtacademy_blog_app_api
     restart: unless-stopped
     working_dir: /var/www/blog_api
@@ -77,7 +78,10 @@ services:                                         # ОПИС СЕРВІСІВ
     depends_on:
       - rtacademy_blog_database_mariadb
     environment:
-      TZ: Europe/Kiev
+      - TZ=Europe/Kiev
+      - APP_ENV=dev
+      - APP_SECRET=c11cfc7c4202dda5b46fa78a81d4c558
+      - DATABASE_URL=mysql://blog:blogpassword@rtacademy_blog_database_mariadb:3306/blog
     networks:
       - rtacademy_blog_network
     deploy:
@@ -100,9 +104,9 @@ services:                                         # ОПИС СЕРВІСІВ
     ports:
       - "0.0.0.0:80:80/tcp"
     depends_on:
-      - rtacademy_blog_app_frontend
+#      - rtacademy_blog_app_frontend
       - rtacademy_blog_app_api
-      - rtacademy_blog_app_admin
+#      - rtacademy_blog_app_admin
     environment:
       TZ: Europe/Kiev
     networks:
