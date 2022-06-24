@@ -6,20 +6,51 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\PostRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 #[UniqueEntity('alias')]
-
-// TODO: https://symfony.com/doc/current/the-fast-track/en/26-api.html
-
+#[ApiResource(
+    collectionOperations:
+    [
+        'get' =>
+        [
+            'normalization_context' => [ 'groups' => 'list' ],
+        ],
+        'post' =>
+        [
+            'normalization_context' => [ 'groups' => 'list' ],
+        ],
+    ],
+    itemOperations:
+    [
+        'get' =>
+        [
+            'normalization_context' => [ 'groups' => 'item' ],
+        ],
+        'put' =>
+        [
+            'normalization_context' => [ 'groups' => 'item' ],
+        ],
+        'delete' =>
+        [
+            'normalization_context' => [ 'groups' => 'item' ],
+        ],
+    ],
+    order: [ 'id' => 'ASC' ],
+    paginationEnabled: false,
+)]
 class Post
 {
-    public const STATUSES = ['published', 'draft'];
+    public const STATUS_PUBLISHED = 'published';
+    public const STATUS_DRAFT     = 'draft';
+    public const STATUSES         = [ self::STATUS_PUBLISHED, self::STATUS_DRAFT ];
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['list', 'item'])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 128)]
@@ -28,6 +59,7 @@ class Post
         min: 2,
         max: 128
     )]
+    #[Groups(['list', 'item'])]
     private $title;
 
     #[ORM\Column(type: 'string', length: 128, unique: true)]
@@ -37,27 +69,33 @@ class Post
         max: 128
     )]
     #[Assert\Regex('/^[a-z0-9\-]/')]
+    #[Groups(['list', 'item'])]
     private $alias;
 
     #[ORM\Column(type: 'text')]
     #[Assert\NotBlank]
+    #[Groups(['item'])]
     private $content;
 
     #[ORM\Column(type: 'datetime')]
     #[Assert\NotBlank]
+    #[Groups(['list', 'item'])]
     private $publish_date;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['list', 'item'])]
     private $author;
 
-    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'posts')]
+    #[ORM\ManyToOne(targetEntity: Post::class, inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['list', 'item'])]
     private $category;
 
-    #[ORM\Column(type: 'string', length: 32)]
+    #[ORM\Column(type: 'string', length: 32, options: ['default' => self::STATUS_PUBLISHED])]
     #[Assert\NotBlank]
-    #[Assert\Choice(choices: Post::STATUSES)]
+    #[Assert\Choice(choices: self::STATUSES)]
+    #[Groups(['list', 'item'])]
     private $status;
 
     public function getId(): ?int

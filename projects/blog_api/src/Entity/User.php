@@ -19,26 +19,26 @@ use Symfony\Component\Validator\Constraints as Assert;
     [
         'get' =>
         [
-            'normalization_context' => [ 'groups' => 'user:list' ],
+            'normalization_context' => [ 'groups' => 'list' ],
         ],
         'post' =>
         [
-            'normalization_context' => [ 'groups' => 'user:list' ],
+            'normalization_context' => [ 'groups' => 'list' ],
         ],
     ],
     itemOperations:
     [
         'get' =>
         [
-            'normalization_context' => [ 'groups' => 'user:item' ],
+            'normalization_context' => [ 'groups' => 'item' ],
         ],
         'put' =>
         [
-            'normalization_context' => [ 'groups' => 'user:item' ],
+            'normalization_context' => [ 'groups' => 'item' ],
         ],
         'delete' =>
         [
-            'normalization_context' => [ 'groups' => 'user:item' ],
+            'normalization_context' => [ 'groups' => 'item' ],
         ],
     ],
     order: [ 'id' => 'ASC' ],
@@ -48,13 +48,13 @@ class User
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    #[Groups(['user:list', 'user:item'])]
+    #[Groups(['list', 'item'])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 32, unique: true)]
     #[Assert\NotBlank]
     #[Assert\Regex('/^[a-z0-9\-]/')]
-    #[Groups(['user:list', 'user:item'])]
+    #[Groups(['list', 'item'])]
     private $login;
 
     #[ORM\Column(type: 'string', length: 128)]
@@ -68,7 +68,7 @@ class User
         max: 255
     )]
     #[Assert\Email]
-    #[Groups(['user:list', 'user:item'])]
+    #[Groups(['list', 'item'])]
     private $email;
 
     #[ORM\Column(type: 'string', length: 64)]
@@ -77,7 +77,7 @@ class User
         min: 2,
         max: 64
     )]
-    #[Groups(['user:list', 'user:item'])]
+    #[Groups(['list', 'item'])]
     private $lastname;
 
     #[ORM\Column(type: 'string', length: 64)]
@@ -86,7 +86,7 @@ class User
         min: 2,
         max: 64
     )]
-    #[Groups(['user:list', 'user:item'])]
+    #[Groups(['list', 'item'])]
     private $firstname;
 
     public function __construct()
