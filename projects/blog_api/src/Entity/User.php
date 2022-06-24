@@ -42,6 +42,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         ],
     ],
     order: [ 'id' => 'ASC' ],
+    paginationEnabled: false,
 )]
 class User
 {
@@ -53,7 +54,7 @@ class User
 
     #[ORM\Column(type: 'string', length: 32, unique: true)]
     #[Assert\NotBlank]
-    #[Assert\Regex('/^[a-z0-9\-]/')]
+    #[Assert\Regex('/^[a-z0-9\-]+$/')]
     #[Groups(['list', 'item'])]
     private $login;
 

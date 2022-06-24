@@ -38,8 +38,8 @@ use Symfony\Component\Validator\Constraints as Assert;
             'normalization_context' => [ 'groups' => 'item' ],
         ],
     ],
-    order: [ 'id' => 'ASC' ],
-    paginationEnabled: false,
+    order: [ 'publish_date' => 'DESC' ],
+    paginationEnabled: true,
 )]
 class Post
 {
@@ -68,7 +68,7 @@ class Post
         min: 2,
         max: 128
     )]
-    #[Assert\Regex('/^[a-z0-9\-]/')]
+    #[Assert\Regex('/^[a-z0-9\-]+$/')]
     #[Groups(['list', 'item'])]
     private $alias;
 
@@ -82,12 +82,12 @@ class Post
     #[Groups(['list', 'item'])]
     private $publish_date;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'posts')]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['list', 'item'])]
     private $author;
 
-    #[ORM\ManyToOne(targetEntity: Post::class, inversedBy: 'posts')]
+    #[ORM\ManyToOne(targetEntity: Category::class)]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['list', 'item'])]
     private $category;

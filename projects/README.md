@@ -38,6 +38,8 @@ $ git config --global user.name "Roman"
 # symfony console make:entity Category
 # symfony console make:entity User
 # symfony console make:entity Post
+# symfony console make:entity PostCover
+# symfony console make:entity PostComment
 # symfony console make:migration
 # symfony console doctrine:migrations:migrate
 ```

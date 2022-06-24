@@ -3,16 +3,13 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\CategoryRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Repository\PostCoverRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: CategoryRepository::class)]
-#[UniqueEntity('alias')]
+#[ORM\Entity(repositoryClass: PostCoverRepository::class)]
+#[UniqueEntity('filename')]
 #[ApiResource(
     collectionOperations:
     [
@@ -43,7 +40,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     order: [ 'id' => 'ASC' ],
     paginationEnabled: false,
 )]
-class Category
+class PostCover
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -51,33 +48,39 @@ class Category
     #[Groups(['list', 'item'])]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 64)]
+    #[ORM\Column(type: 'string', length: 128, unique: true)]
     #[Assert\NotBlank]
     #[Assert\Length(
-        min: 2,
-        max: 64
+        min: 4,
+        max: 128
     )]
+    #[Assert\Regex('/^[a-z0-9\-\_\.]+$/')]
+    #[Groups(['list', 'item'])]
+    private $filename;
+
+    #[ORM\Column(type: 'string', length: 64, nullable: true)]
     #[Groups(['list', 'item'])]
     private $title;
 
-    #[ORM\Column(type: 'string', length: 64, unique: true)]
-    #[Assert\NotBlank]
-    #[Assert\Length(
-        min: 2,
-        max: 64
-    )]
-    #[Assert\Regex('/^[a-z0-9\-]+$/')]
-    #[Groups(['list', 'item'])]
-    private $alias;
-
-    public function __construct()
-    {
-        $this->posts = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(targetEntity: Post::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private $post;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getFilename(): ?string
+    {
+        return $this->filename;
+    }
+
+    public function setFilename(string $filename): self
+    {
+        $this->filename = $filename;
+
+        return $this;
     }
 
     public function getTitle(): ?string
@@ -85,21 +88,21 @@ class Category
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
         return $this;
     }
 
-    public function getAlias(): ?string
+    public function getPost(): ?Post
     {
-        return $this->alias;
+        return $this->post;
     }
 
-    public function setAlias(string $alias): self
+    public function setPost(?Post $post): self
     {
-        $this->alias = $alias;
+        $this->post = $post;
 
         return $this;
     }
