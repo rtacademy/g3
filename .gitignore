@@ -1,2 +1,10 @@
 .git
 .idea
+
+/projects/*/.env.local
+/projects/*/.env.local.php
+/projects/*/.env.*.local
+/projects/*/config/secrets/prod/prod.decrypt.private.php
+/projects/*/public/bundles/
+/projects/*/var/
+/projects/*/vendor/
