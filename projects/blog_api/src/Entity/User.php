@@ -11,35 +11,33 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity('login')]
-#[UniqueEntity('email')]
+#[ORM\Entity( repositoryClass: UserRepository::class )]
+#[UniqueEntity( 'login' )]
+#[UniqueEntity( 'email' )]
 #[ApiResource(
-    collectionOperations:
-    [
-        'get' =>
-        [
-            'normalization_context' => [ 'groups' => 'list' ],
-        ],
+    collectionOperations: [
+        'get'  =>
+            [
+                'normalization_context' => [ 'groups' => 'list' ],
+            ],
         'post' =>
-        [
-            'normalization_context' => [ 'groups' => 'list' ],
-        ],
+            [
+                'normalization_context' => [ 'groups' => 'list' ],
+            ],
     ],
-    itemOperations:
-    [
-        'get' =>
-        [
-            'normalization_context' => [ 'groups' => 'item' ],
-        ],
-        'put' =>
-        [
-            'normalization_context' => [ 'groups' => 'item' ],
-        ],
+    itemOperations: [
+        'get'    =>
+            [
+                'normalization_context' => [ 'groups' => 'item' ],
+            ],
+        'put'    =>
+            [
+                'normalization_context' => [ 'groups' => 'item' ],
+            ],
         'delete' =>
-        [
-            'normalization_context' => [ 'groups' => 'item' ],
-        ],
+            [
+                'normalization_context' => [ 'groups' => 'item' ],
+            ],
     ],
     order: [ 'id' => 'ASC' ],
     paginationEnabled: false,
@@ -48,46 +46,46 @@ class User
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    #[Groups(['list', 'item'])]
+    #[ORM\Column( type: 'integer' )]
+    #[Groups( [ 'list', 'item' ] )]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 32, unique: true)]
+    #[ORM\Column( type: 'string', length: 32, unique: true )]
     #[Assert\NotBlank]
-    #[Assert\Regex('/^[a-z0-9\-]+$/')]
-    #[Groups(['list', 'item'])]
+    #[Assert\Regex( '/^[a-z0-9\-]+$/' )]
+    #[Groups( [ 'list', 'item' ] )]
     private $login;
 
-    #[ORM\Column(type: 'string', length: 128)]
+    #[ORM\Column( type: 'string', length: 128 )]
     #[Assert\NotBlank]
     private $password;
 
-    #[ORM\Column(type: 'string', length: 255, unique: true)]
+    #[ORM\Column( type: 'string', length: 255, unique: true )]
     #[Assert\NotBlank]
     #[Assert\Length(
         min: 6,
         max: 255
     )]
     #[Assert\Email]
-    #[Groups(['list', 'item'])]
+    #[Groups( [ 'list', 'item' ] )]
     private $email;
 
-    #[ORM\Column(type: 'string', length: 64)]
+    #[ORM\Column( type: 'string', length: 64 )]
     #[Assert\NotBlank]
     #[Assert\Length(
         min: 2,
         max: 64
     )]
-    #[Groups(['list', 'item'])]
+    #[Groups( [ 'list', 'item' ] )]
     private $lastname;
 
-    #[ORM\Column(type: 'string', length: 64)]
+    #[ORM\Column( type: 'string', length: 64 )]
     #[Assert\NotBlank]
     #[Assert\Length(
         min: 2,
         max: 64
     )]
-    #[Groups(['list', 'item'])]
+    #[Groups( [ 'list', 'item' ] )]
     private $firstname;
 
     public function __construct()
@@ -105,7 +103,7 @@ class User
         return $this->login;
     }
 
-    public function setLogin(string $login): self
+    public function setLogin( string $login ): self
     {
         $this->login = $login;
 
@@ -117,7 +115,7 @@ class User
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword( string $password ): self
     {
         $this->password = $password;
 
@@ -129,7 +127,7 @@ class User
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail( string $email ): self
     {
         $this->email = $email;
 
@@ -141,7 +139,7 @@ class User
         return $this->lastname;
     }
 
-    public function setLastname(string $lastname): self
+    public function setLastname( string $lastname ): self
     {
         $this->lastname = $lastname;
 
@@ -153,7 +151,7 @@ class User
         return $this->firstname;
     }
 
-    public function setFirstname(string $firstname): self
+    public function setFirstname( string $firstname ): self
     {
         $this->firstname = $firstname;
 

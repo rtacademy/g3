@@ -34,12 +34,15 @@ $ git config --global user.name "Roman"
 # symfony new blog_api --version=6.1
 # composer req --dev maker
 # composer req symfony/validator doctrine/annotations doctrine/orm
+# composer req symfony/security-bundle
 # composer req api
 # symfony console make:entity Category
 # symfony console make:entity User
 # symfony console make:entity Post
 # symfony console make:entity PostCover
 # symfony console make:entity PostComment
+# symfony console make:entity ApiUser
 # symfony console make:migration
 # symfony console doctrine:migrations:migrate
+# symfony console cache:clear
 ```

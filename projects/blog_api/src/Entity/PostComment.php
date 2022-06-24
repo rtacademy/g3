@@ -7,33 +7,31 @@ use App\Repository\PostCommentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ORM\Entity(repositoryClass: PostCommentRepository::class)]
+#[ORM\Entity( repositoryClass: PostCommentRepository::class )]
 #[ApiResource(
-    collectionOperations:
-    [
-        'get' =>
-        [
-            'normalization_context' => [ 'groups' => 'list' ],
-        ],
+    collectionOperations: [
+        'get'  =>
+            [
+                'normalization_context' => [ 'groups' => 'list' ],
+            ],
         'post' =>
-        [
-            'normalization_context' => [ 'groups' => 'list' ],
-        ],
+            [
+                'normalization_context' => [ 'groups' => 'list' ],
+            ],
     ],
-    itemOperations:
-    [
-        'get' =>
-        [
-            'normalization_context' => [ 'groups' => 'item' ],
-        ],
-        'put' =>
-        [
-            'normalization_context' => [ 'groups' => 'item' ],
-        ],
+    itemOperations: [
+        'get'    =>
+            [
+                'normalization_context' => [ 'groups' => 'item' ],
+            ],
+        'put'    =>
+            [
+                'normalization_context' => [ 'groups' => 'item' ],
+            ],
         'delete' =>
-        [
-            'normalization_context' => [ 'groups' => 'item' ],
-        ],
+            [
+                'normalization_context' => [ 'groups' => 'item' ],
+            ],
     ],
     order: [ 'id' => 'ASC' ],
     paginationEnabled: false,
@@ -42,29 +40,29 @@ class PostComment
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    #[Groups(['list', 'item'])]
+    #[ORM\Column( type: 'integer' )]
+    #[Groups( [ 'list', 'item' ] )]
     private $id;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column( type: 'datetime' )]
     #[Assert\NotBlank]
-    #[Assert\Type('\DateTime')]
-    #[Groups(['list', 'item'])]
+    #[Assert\Type( '\DateTime' )]
+    #[Groups( [ 'list', 'item' ] )]
     private $created_date;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column( type: 'string', length: 255 )]
     #[Assert\NotBlank]
-    #[Groups(['list', 'item'])]
+    #[Groups( [ 'list', 'item' ] )]
     private $comment;
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
-    #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['list', 'item'])]
+    #[ORM\ManyToOne( targetEntity: User::class )]
+    #[ORM\JoinColumn( nullable: false )]
+    #[Groups( [ 'list', 'item' ] )]
     private $user;
 
-    #[ORM\ManyToOne(targetEntity: Post::class)]
-    #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['list', 'item'])]
+    #[ORM\ManyToOne( targetEntity: Post::class )]
+    #[ORM\JoinColumn( nullable: false )]
+    #[Groups( [ 'list', 'item' ] )]
     private $post;
 
     public function getId(): ?int
@@ -77,7 +75,7 @@ class PostComment
         return $this->created_date;
     }
 
-    public function setCreatedDate(\DateTimeInterface $created_date): self
+    public function setCreatedDate( \DateTimeInterface $created_date ): self
     {
         $this->created_date = $created_date;
 
@@ -89,7 +87,7 @@ class PostComment
         return $this->comment;
     }
 
-    public function setComment(string $comment): self
+    public function setComment( string $comment ): self
     {
         $this->comment = $comment;
 
@@ -101,7 +99,7 @@ class PostComment
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser( ?User $user ): self
     {
         $this->user = $user;
 
@@ -113,7 +111,7 @@ class PostComment
         return $this->post;
     }
 
-    public function setPost(?Post $post): self
+    public function setPost( ?Post $post ): self
     {
         $this->post = $post;
 
