@@ -1,1 +1,1 @@
-insert into api_user (token) values ('VmXMdTA4u7eLRtn0mO4u81315QV0LX3mphwV0MQkqLxeIas6hidIVb4eSzh4M5xWce8pNtKw9gCDkB5f0KMTxhuDSCjRuA5yCeaCzTCUWZ520pRRKBuf1BqQsdFqCupU');
+insert into api_user (token) values ('1SEkpnyDplN0DVqvRkgcRur6HKmg7TGahW3MF3RkirOIuuX3tzFlpU7f5IbUhFPFWtH21KQG3XzRMP9CnVbyPWiCWiJ4HYaDRhL3y955h7XByl7ZaNXIdmiuYAaBZcjM');

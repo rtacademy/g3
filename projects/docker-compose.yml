@@ -8,6 +8,7 @@ services:                                         # ОПИС СЕРВІСІВ
     restart: unless-stopped
     volumes:
       - rtacademy_blog_database_mariadb_data:/var/lib/mysql:rw
+      - ./docker/rtacademy_blog_database_mariadb/initial.sql:/tmp/initial.sql:ro
     ports:
       - "127.0.0.1:3306:3306/tcp"
     environment:
