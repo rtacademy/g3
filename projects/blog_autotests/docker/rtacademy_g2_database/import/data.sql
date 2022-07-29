@@ -1,3 +1,4 @@
+SET NAMES 'utf8' COLLATE 'utf8_general_ci';
 
 -- comments_statuses
 CREATE TABLE `comments_statuses` (

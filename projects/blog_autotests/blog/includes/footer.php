@@ -11,7 +11,7 @@
                 <li><a href="#"><img src="./images/icons/008-youtube.svg" alt="youtube"></a></li>
             </ul>
 
-            <p>&copy; Copyright, 2021</p>
+            <p>&copy; Copyright, <?= date('Y') ?></p>
         </div>
 
         <div class="nav">
@@ -25,9 +25,9 @@
 
                 ?>
                 <li>Hello, <?= \lib\Session::getFirstName() ?></li>
-                <li><a href="./post_add.php">Add Post</a></li>
-                <li><a href="./category_add.php">Add Category</a></li>
-                <li><a href="./logout.php">Logout</a></li>
+                <li><a href="./post_add.php" id="user-area-add-post">Add Post</a></li>
+                <li><a href="./category_add.php" id="user-area-add-category">Add Category</a></li>
+                <li><a href="./logout.php" id="user-area-logout">Logout</a></li>
                 <?php
 
                 }
@@ -35,7 +35,7 @@
                 {
 
                 ?>
-                <li><a href="./login.php">Login</a></li>
+                <li><a href="./login.php" id="user-area-login">Login</a></li>
                 <?php
 
                 }

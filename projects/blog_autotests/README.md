@@ -9,7 +9,7 @@ $ cd /path/to/docker-compose.yml
 ``` 
 $ chmod -R 777 .
 $ docker compose up -d
-$ docker exec rtacademy_g2_database /bin/bash -c "mysql -u rtacademy_g2 -prtacademy_g2 blog_rtacademy_g2 < /import/data.sql"
+$ docker exec rtacademy_g2_database /bin/bash -c "mysql -u rtacademy_g2 -prtacademy_g2 --default-character-set=utf8 blog_rtacademy_g2 < /import/data.sql"
 ```
 
 ### Frontend:
