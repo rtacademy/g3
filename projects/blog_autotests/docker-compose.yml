@@ -8,7 +8,7 @@ services:                                         # ОПИС СЕРВІСІВ
     restart: unless-stopped                       # політика перезавантажень сервіса (пока не буде зупинено)
     volumes:                                      # монтування томів (persistent storage) всередину контейнера
       - rtacademy_g2_database_data:/var/lib/mysql
-      - ./docker/rtacademy_g2_database/initial.sql:/tmp/initial.sql:ro
+      - ./docker/rtacademy_g2_database/import/:/import/:ro
     environment:                                  # змінні оточення
       MYSQL_ROOT_USER: root
       MYSQL_ROOT_PASSWORD: secretpassword
@@ -27,7 +27,7 @@ services:                                         # ОПИС СЕРВІСІВ
     restart: unless-stopped                       # політика перезавантажень сервіса (допоки не буде зупинено)
     working_dir: /var/www                         # робоча директорія
     volumes:                                      # монтування томів (persistent storage) всередину контейнера
-      - ./symfony_blog:/var/www:rw                # тут необхідно в лівому аргументі (до двокрапки) вказати коректний шлях до ваших файлів
+      - ./blog:/var/www:rw                        # тут необхідно в лівому аргументі (до двокрапки) вказати коректний шлях до ваших файлів
     depends_on:                                   # цей сервіс залежить від наступних сервісів
       - rtacademy_g2_database
     networks:                                     # локальна мережа контейнера
@@ -40,7 +40,7 @@ services:                                         # ОПИС СЕРВІСІВ
     restart: unless-stopped                       # політика перезавантажень сервіса (допоки не буде зупинено)
     working_dir: /var/www                         # робоча директорія
     volumes:                                      # монтування томів (persistent storage) всередину контейнера
-      - ./symfony_blog:/var/www:ro                # тут необхідно в лівому аргументі (до двокрапки) вказати коректний шлях до ваших файлів
+      - ./blog:/var/www:ro                        # тут необхідно в лівому аргументі (до двокрапки) вказати коректний шлях до ваших файлів
       - ./docker/rtacademy_g2_web/etc/nginx/conf.d:/etc/nginx/conf.d    # налаштування веб-сервера nginx
     ports:                                        # список відкритих назовні портів <hostPort>:<containerPort>
       - "0.0.0.0:8888:80/tcp"                     # (відкрити підʼєднання на порт 80 за межами контейнера з будь-якої адреси IPv4 та на порт 8888 за протоколом TCP)
