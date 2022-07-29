@@ -6,7 +6,8 @@ CREATE TABLE `comments_statuses` (
     `title` varchar(255) NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `name` (`name`)
-);
+)
+DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB;
 
 -- posts_statuses
 CREATE TABLE `posts_statuses` (
@@ -15,7 +16,8 @@ CREATE TABLE `posts_statuses` (
     `title` varchar(255) NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `name` (`name`)
-);
+)
+DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB;
 
 -- users_roles
 CREATE TABLE `users_roles` (
@@ -24,7 +26,8 @@ CREATE TABLE `users_roles` (
     `title` varchar(255) NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `name` (`name`)
-);
+)
+DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB;
 
 -- users_statuses
 CREATE TABLE `users_statuses` (
@@ -33,7 +36,8 @@ CREATE TABLE `users_statuses` (
     `title` varchar(255) NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `name` (`name`)
-);
+)
+DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB;
 
 -- posts_categories
 CREATE TABLE `posts_categories` (
@@ -42,7 +46,8 @@ CREATE TABLE `posts_categories` (
     `alias` varchar(128) NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `alias` (`alias`)
-);
+)
+DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB;
 
 -- posts_covers
 CREATE TABLE `posts_covers` (
@@ -51,7 +56,8 @@ CREATE TABLE `posts_covers` (
     `alt` varchar(128),
     PRIMARY KEY (`id`),
     UNIQUE KEY `filename` (`filename`)
-);
+)
+DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB;
 
 -- posts_tags
 CREATE TABLE `posts_tags` (
@@ -61,7 +67,8 @@ CREATE TABLE `posts_tags` (
     PRIMARY KEY (`id`),
     UNIQUE KEY `tag` (`tag`),
     UNIQUE KEY `alias` (`alias`)
-);
+)
+DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB;
 
 -- website_menu
 CREATE TABLE `website_menu` (
@@ -70,9 +77,8 @@ CREATE TABLE `website_menu` (
     `href` varchar(255) NOT NULL,
     `order` tinyint(4) NOT NULL,
     PRIMARY KEY (`id`)
-);
-
---
+)
+DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB;
 
 -- users
 CREATE TABLE `users` (
@@ -89,7 +95,8 @@ CREATE TABLE `users` (
     UNIQUE KEY `login` (`login`),
     FOREIGN KEY (`role_id`) REFERENCES `users_roles` (`id`),
     FOREIGN KEY (`status_id`) REFERENCES `users_statuses` (`id`)
-);
+)
+DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB;
 
 -- posts
 CREATE TABLE `posts` (
@@ -108,7 +115,8 @@ CREATE TABLE `posts` (
     FOREIGN KEY (`category_id`) REFERENCES `posts_categories` (`id`),
     FOREIGN KEY (`cover_id`) REFERENCES `posts_covers` (`id`),
     FOREIGN KEY (`status_id`) REFERENCES `posts_statuses` (`id`)
-);
+)
+DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB;
 
 -- posts_comments
 CREATE TABLE `posts_comments` (
@@ -122,7 +130,8 @@ CREATE TABLE `posts_comments` (
     FOREIGN KEY (`status_id`) REFERENCES `comments_statuses` (`id`),
     FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`),
     FOREIGN KEY (`author_id`) REFERENCES `users` (`id`)
-);
+)
+DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB;
 
 -- posts_to_tags
 CREATE TABLE `posts_to_tags` (
@@ -131,7 +140,8 @@ CREATE TABLE `posts_to_tags` (
     PRIMARY KEY (`post_id`,`tag_id`),
     FOREIGN KEY (`tag_id`) REFERENCES `posts_tags` (`id`),
     FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`)
-);
+)
+DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB;
 
 --
 

@@ -1,19 +1,12 @@
-FROM php:8.0-fpm
+FROM php:8.1-fpm
 
 WORKDIR /var/www
 
-RUN apt update \
-    && apt install -y zlib1g-dev g++ git libicu-dev zip libzip-dev zip \
-    && docker-php-ext-install -j$(nproc) intl opcache pdo pdo_mysql \
-    && pecl install apcu \
-    && docker-php-ext-enable apcu \
-    && docker-php-ext-configure zip \
-    && docker-php-ext-install zip
+RUN \
+    apt-get update -y \
+    && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd pdo_mysql iconv \
+    && rm -Rf /var/www/html
 
-COPY ./usr/local/etc/php/conf.d/settings.ini    /usr/local/etc/php/conf.d/
-
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-RUN curl -sS https://get.symfony.com/cli/installer | bash
-
-RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+COPY usr/local/etc/php/conf.d/settings.ini  /usr/local/etc/php/conf.d/40-php.ini
