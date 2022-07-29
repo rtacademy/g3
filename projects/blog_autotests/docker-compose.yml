@@ -1,0 +1,62 @@
+# Services
+services:                                         # ОПИС СЕРВІСІВ
+
+  # MariaDB Service
+  rtacademy_g2_database:                          # назва сервіса
+    image: mariadb:latest                         # основний образ та версія
+    container_name: rtacademy_g2_database         # назва контейнера
+    restart: unless-stopped                       # політика перезавантажень сервіса (пока не буде зупинено)
+    volumes:                                      # монтування томів (persistent storage) всередину контейнера
+      - rtacademy_g2_database_data:/var/lib/mysql
+      - ./docker/rtacademy_g2_database/initial.sql:/tmp/initial.sql:ro
+    environment:                                  # змінні оточення
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: secretpassword
+      MYSQL_DATABASE: blog_rtacademy_g2
+      MYSQL_USER: rtacademy_g2
+      MYSQL_PASSWORD: rtacademy_g2
+    networks:                                     # локальна мережа контейнера
+      - rtacademy_g2_network
+
+  # PHP-FPM Service
+  rtacademy_g2_app:                               # назва сервіса
+    build:                                        # опції збирання
+      context: ./docker/rtacademy_g2_app          # директорія для збірки (source directory)
+    image: rtacademy_g2_app:latest                # основний образ та версія
+    container_name: rtacademy_g2_app              # назва контейнера
+    restart: unless-stopped                       # політика перезавантажень сервіса (допоки не буде зупинено)
+    working_dir: /var/www                         # робоча директорія
+    volumes:                                      # монтування томів (persistent storage) всередину контейнера
+      - ./symfony_blog:/var/www:rw                # тут необхідно в лівому аргументі (до двокрапки) вказати коректний шлях до ваших файлів
+    depends_on:                                   # цей сервіс залежить від наступних сервісів
+      - rtacademy_g2_database
+    networks:                                     # локальна мережа контейнера
+      - rtacademy_g2_network
+
+  # Nginx Service
+  rtacademy_g2_web:                               # назва сервіса
+    image: nginx:latest                           # основний образ та версія
+    container_name: rtacademy_g2_web              # назва контейнера
+    restart: unless-stopped                       # політика перезавантажень сервіса (допоки не буде зупинено)
+    working_dir: /var/www                         # робоча директорія
+    volumes:                                      # монтування томів (persistent storage) всередину контейнера
+      - ./symfony_blog:/var/www:ro                # тут необхідно в лівому аргументі (до двокрапки) вказати коректний шлях до ваших файлів
+      - ./docker/rtacademy_g2_web/etc/nginx/conf.d:/etc/nginx/conf.d    # налаштування веб-сервера nginx
+    ports:                                        # список відкритих назовні портів <hostPort>:<containerPort>
+      - "0.0.0.0:8888:80/tcp"                     # (відкрити підʼєднання на порт 80 за межами контейнера з будь-якої адреси IPv4 та на порт 8888 за протоколом TCP)
+    depends_on:                                   # цей сервіс залежить від наступних сервісів
+      - rtacademy_g2_database
+      - rtacademy_g2_app
+    networks:                                     # локальна мережа контейнера
+      - rtacademy_g2_network
+
+# Networks
+networks:                                         # ОПИС МЕРЕЖ
+  rtacademy_g2_network:
+    name: rtacademy_g2_network                    # назва мережі
+    driver: bridge                                # тип підʼєднання (default)
+
+# Volumes
+volumes:                                          # ОПИС ТОМІВ
+  rtacademy_g2_database_data:
+    name: rtacademy_g2_database_data              # назва тому
