@@ -10,7 +10,7 @@ spl_autoload_register(
 );
 
 // отримуємо сторінку з запиту
-$page        = intval( preg_replace( '#[^0-9]#', '', $_GET['page'] ) ) ?? 2;        // за замовчуванням це друга сторінка
+$page        = (int)preg_replace( '#[^0-9]#', '', $_GET['page'] ) ?? 2;        // за замовчуванням це друга сторінка
 
 $postsModels = new \lib\models\PostsModel();
 $posts       = $postsModels->getList( $page );

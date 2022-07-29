@@ -78,7 +78,7 @@ require_once( './includes/header.php' );
 
                     if( !empty( $categoriesItems ) )
                     {
-                        $currentCategory = intval( $_POST['category'] ?? 0 );
+                        $currentCategory = (int)( $_POST['category'] ?? 0 );
 
                         foreach( $categoriesItems as $category )
                         {
@@ -90,7 +90,7 @@ require_once( './includes/header.php' );
                 </select>
             </li>
 
-            <li><label for="form-post-cover">Зображення<span>*</span></label></li>
+            <li><label for="form-post-cover">Зображення<span>*</span> (мінімум 1200px шириною)</label></li>
             <li>
                 <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
                 <input type="file" name="cover" id="form-post-cover" accept="image/jpeg" required>
@@ -104,7 +104,7 @@ require_once( './includes/header.php' );
 
                     if( !empty( $postsStatuses ) )
                     {
-                        $currentStatus = intval( $_POST['status'] ?? 0 );
+                        $currentStatus = (int)( $_POST['status'] ?? 0 );
 
                         foreach( $postsStatuses as $status )
                         {

@@ -239,7 +239,7 @@ class PostController
 
         // додаємо новий пост/запис
         $post       = $postsModel->add(
-            $title, $description, $content, $publish_date, intval( $category ), $postCover->getId(), intval( $status )
+            $title, $description, $content, $publish_date, (int)$category, $postCover->getId(), intval( $status )
         );
 
         if( empty( $post ) )

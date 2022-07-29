@@ -54,7 +54,7 @@ class Session
 
     public static function getId() : int
     {
-        return intval( $_SESSION['id'] ?? 0 );
+        return (int)( $_SESSION['id'] ?? 0 );
     }
 
     public static function getFirstName() : string

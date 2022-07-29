@@ -13,7 +13,7 @@ spl_autoload_register(
 \lib\Session::start();
 
 // отримуємо ID запису
-$postId = intval( preg_replace( '#[^0-9]#', '', $_GET['id'] ?? '0' ) );
+$postId = (int)preg_replace( '#[^0-9]#', '', $_GET['id'] ?? '0' );
 
 // обробка форми редагування запису
 $postController    = new \lib\controllers\PostController();
@@ -83,7 +83,7 @@ require_once( './includes/header.php' );
 
                     if( !empty( $categoriesItems ) )
                     {
-                        $currentCategory = intval( $post->getCategory()->getId() ?? 0 );
+                        $currentCategory = $post->getCategory()->getId() ?? 0;
 
                         foreach( $categoriesItems as $category )
                         {
@@ -95,7 +95,7 @@ require_once( './includes/header.php' );
                 </select>
             </li>
 
-            <li><label for="form-post-cover">Зображення<span>*</span></label></li>
+            <li><label for="form-post-cover">Зображення<span>*</span> (мінімум 1200px шириною)</label></li>
             <li>
                 <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
                 <input type="file" name="cover" id="form-post-cover" accept="image/jpeg" required>
@@ -109,7 +109,7 @@ require_once( './includes/header.php' );
 
                     if( !empty( $postsStatuses ) )
                     {
-                        $currentStatus = intval( $post->getStatus()?->getId() ?? 0 );
+                        $currentStatus = $post->getStatus()?->getId() ?? 0;
 
                         foreach( $postsStatuses as $status )
                         {

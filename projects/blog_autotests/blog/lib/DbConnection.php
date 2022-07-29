@@ -28,11 +28,14 @@ class DbConnection
             self::$_db = new \PDO(
                 'mysql:host=' . self::HOST . ';port=' . self::PORT . ';dbname=' . self::DBNAME,
                 self::DBUSER,
-                self::DBPASSWORD
+                self::DBPASSWORD,
+                [
+                    // встановлюємо режим викиду PDOException при виникненні помилки
+                    \PDO::ATTR_ERRMODE              => \PDO::ERRMODE_EXCEPTION,
+                    // встановлюємо UTF-8
+                    \PDO::MYSQL_ATTR_INIT_COMMAND   => 'SET NAMES utf8',
+                ]
             );
-
-            // встановлюємо режим викиду PDOException при виникненні помилки
-            self::$_db->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION );
         }
 
         return self::$_db;

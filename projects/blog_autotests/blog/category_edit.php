@@ -13,7 +13,7 @@ spl_autoload_register(
 \lib\Session::start();
 
 // отримуємо ID запису
-$categoryId = intval( preg_replace( '#[^0-9]#', '', $_GET['id'] ?? '0' ) );
+$categoryId = (int)preg_replace( '#[^0-9]#', '', $_GET['id'] ?? '0' );
 
 // обробка форми редагування категорії
 $categoryController    = new \lib\controllers\CategoryController();

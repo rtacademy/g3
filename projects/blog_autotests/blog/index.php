@@ -68,7 +68,7 @@ require_once( './includes/header.php' );
     {
 
     ?>
-    <a href="#" id="load-more" data-current-page="2" data-max-pages="<?= intval( ceil( $postsTotalCount / \lib\models\PostsModel::COUNT_PER_PAGE ) ) ?>">Load More</a>
+    <a href="#" id="load-more" data-current-page="2" data-max-pages="<?= (int)ceil( $postsTotalCount / \lib\models\PostsModel::COUNT_PER_PAGE ) ?>">Load More</a>
     <?php
 
     }
