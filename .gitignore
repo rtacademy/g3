@@ -8,3 +8,5 @@
 /projects/*/public/bundles/
 /projects/*/var/
 /projects/*/vendor/
+
+node_modules/
