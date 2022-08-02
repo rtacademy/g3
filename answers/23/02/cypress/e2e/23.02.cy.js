@@ -32,6 +32,8 @@ describe(
             cy.get( 'main.main-posts > div.posts article' )
                 .should( 'be.visible' )
                 .should( 'have.length', 3 );
+
+            //cy.screenshot();
         } );
 
         it( 'Відкрити першу сторінку, довантажити пости через "Load More"', () =>
@@ -40,7 +42,9 @@ describe(
 
             cy.intercept( 'GET', '**/posts_ajax.php?page=2' ).as( 'postsLoadMore' );
 
-            cy.get( '#load-more' ).click();
+            cy.get( '#load-more' )
+                .should( 'be.visible' )
+                .click();
 
             cy.wait( '@postsLoadMore' ).should(
                 ( { request, response } ) =>
@@ -53,6 +57,47 @@ describe(
             cy.get( 'main.main-posts > div.posts article' )
                 .should( 'be.visible' )
                 .should( 'have.length', 6 );
+
+            //cy.screenshot();
+        } );
+
+        it( 'Відкрити першу сторінку, довантажити пости через "Load More", відкрити будь-який та перевірити його', () =>
+        {
+            cy.visit( baseUrl );
+
+            cy.intercept( 'GET', '**/posts_ajax.php?page=2' ).as( 'postsLoadMore' );
+
+            cy.get( '#load-more' )
+                .should( 'be.visible' )
+                .click();
+
+            cy.wait( '@postsLoadMore' ).should(
+                ( { request, response } ) =>
+                {
+                    utilsResponse.checkJSON( response );
+                    expect( response.body ).to.have.length( 3 );
+                }
+            );
+
+            // let articleTitle;
+            // cy.get('main.main-posts > div.posts > article:nth-child(5) > a.title > h2')
+            //     .then( val => articleTitle = Cypress.$(val).text() );
+            // cy.log(articleTitle);
+            // cy.log( Cypress.$('main.main-posts > div.posts > article:nth-child(5) > a.title > h2').text() );
+
+            cy.get('main.main-posts > div.posts > article:nth-child(5) > a.title')
+                .should( 'be.visible' )
+                .click();
+
+            const articleUrl = '/single.php?id=4';
+            const articleTitle = 'Xbox Design Lab Returns, Supports Next-Gen Controller Designs';
+
+            cy.url().should( 'include', articleUrl );
+
+            cy.get( 'main > article div > h1' )
+                .should( 'contain.text', articleTitle );
+
+            //cy.screenshot();
         } );
     }
 );
@@ -98,6 +143,8 @@ describe(
             cy.get( 'main.main-posts > div.posts article' )
                 .should( 'be.visible' )
                 .should( 'have.length', 3 );
+
+            //cy.screenshot();
         } );
 
         after(
