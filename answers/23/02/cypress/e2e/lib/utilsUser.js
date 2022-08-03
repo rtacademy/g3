@@ -14,8 +14,7 @@ utilsUser.authorize = () =>
     const baseUrl = Cypress.env( 'url' ).toString();
 
     const users = Cypress.env( 'users' );
-    // отримання авторизаційних даних випадкового користувача з доступних
-    const { login, password, firstname } = users[ Math.floor( Math.random() * users.length ) ];
+    const { login, password, firstname } = users[ 0 ]; // users[ Math.floor( Math.random() * users.length ) ];
 
     cy.session( [ login, password ], () =>
     {
