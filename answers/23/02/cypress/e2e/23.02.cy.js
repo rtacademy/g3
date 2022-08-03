@@ -140,6 +140,11 @@ describe(
             cy.visit( baseUrl );
         } );
 
+        it( 'Авторизуватись', () =>
+        {
+            cy.visit( baseUrl );
+        } );
+
         it( 'Відкрити першу сторінку, перевірити що відображено 3 записи', () =>
         {
             cy.get( 'main.main-posts > div.posts article' )
