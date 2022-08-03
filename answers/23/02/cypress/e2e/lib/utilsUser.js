@@ -43,7 +43,7 @@ utilsUser.authorize = () =>
             .click();
 
         cy.get( 'footer .nav ul li:first-child' )
-            .contains( firstname );
+            .should( 'contain', firstname );
 
         // перевірка існування авторизаційної кукі
         utilsUser.checkAuthCookie();
