@@ -10,7 +10,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 18.x.x
-          cache: npm-${{ hashFiles('./22/09/package-lock.json') }}
+          cache: npm
           cache-dependency-path: "./22/09/package-lock.json"
       - name: Install modules
         run: npm install
