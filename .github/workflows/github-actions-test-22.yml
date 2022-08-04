@@ -5,14 +5,16 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: 18.x.x
-          cache: npm
+          cache: npm-${{ hashFiles('./22/09/package-lock.json') }}
           cache-dependency-path: "./22/09/package-lock.json"
       - name: Install modules
-        run: cd ./22/09/ && npm install
+        run: npm install
+        working-directory: ./22/09
       - name: Run tests
-        run: cd ./22/09/ && ./node_modules/mocha/bin/mocha.js .
+        run: ./node_modules/mocha/bin/mocha.js .
+        working-directory: ./22/09
