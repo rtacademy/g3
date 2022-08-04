@@ -1,4 +1,4 @@
-name: GitHub Actions Test 22
+name: GitHub Actions For 22.X
 on: [push]
 jobs:
   run-22-09:
