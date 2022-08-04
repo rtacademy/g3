@@ -11,6 +11,7 @@ jobs:
         with:
           node-version: 18.x.x
           cache: npm
+          cache-dependency-path: "./22/09/package-lock.json"
       - name: Install modules
         run: cd ./22/09/ && npm install
       - name: Run tests
