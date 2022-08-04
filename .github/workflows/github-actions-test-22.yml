@@ -11,10 +11,10 @@ jobs:
         with:
           node-version: 18.x.x
           cache: 'npm'
-          cache-dependency-path: "22/09/package-lock.json"
+          cache-dependency-path: "answers/22/09/package-lock.json"
       - name: Install modules
         run: npm ci
-        working-directory: 22/09
+        working-directory: answers/22/09
       - name: Run tests
         run: npm test
-        working-directory: 22/09
+        working-directory: answers/22/09
