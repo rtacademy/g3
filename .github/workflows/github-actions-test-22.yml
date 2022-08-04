@@ -1,0 +1,10 @@
+name: GitHub Actions Test 22
+on: [push]
+jobs:
+  run-22-09:
+    runs-on: self-hosted
+    steps:
+      - name: Install modules
+        run: cd 22/09/ && npm install
+      - name: Run tests
+        run: cd 22/09/ && ./node_modules/mocha/bin/mocha.js .
