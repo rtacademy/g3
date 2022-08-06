@@ -9,12 +9,10 @@ utilsUser.checkAuthCookie = () =>
         .should( 'have.property', 'value' );
 };
 
-utilsUser.authorize = () =>
+utilsUser.authorize = ( userAuthorizeData ) =>
 {
     const baseUrl = Cypress.env( 'url' ).toString();
-
-    const users = Cypress.env( 'users' );
-    const { login, password, firstname } = users[ 0 ]; // users[ Math.floor( Math.random() * users.length ) ];
+    const { login, password, firstname } = userAuthorizeData;
 
     cy.session( [ login, password ], () =>
     {
@@ -38,6 +36,7 @@ utilsUser.authorize = () =>
 
         cy.get( '.main-form #form-user-submit' )
             .should( 'be.visible' )
+            // ?? .should( 'be.not.disabled' ) // TODO
             .focus()
             .click();
 

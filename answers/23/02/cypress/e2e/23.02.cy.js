@@ -25,21 +25,22 @@ describe(
             baseUrl = Cypress.env( 'url' ).toString();
         } );
 
-        it( 'Відкрити першу сторінку, перевірити що відображено 3 записи', () =>
+        beforeEach( () =>
         {
             cy.visit( baseUrl );
+        });
 
+        it( 'Відкрити першу сторінку, перевірити що відображено 3 записи', () =>
+        {
             cy.get( 'main.main-posts > div.posts article' )
                 .should( 'be.visible' )
                 .should( 'have.length', 3 );
 
-            //cy.screenshot();
+            // cy.screenshot( { overwrite: true } );
         } );
 
         it( 'Відкрити першу сторінку, довантажити пости через "Load More"', () =>
         {
-            cy.visit( baseUrl );
-
             cy.intercept( 'GET', '**/posts_ajax.php?page=2' ).as( 'postsLoadMore' );
 
             cy.get( '#load-more' )
@@ -58,13 +59,11 @@ describe(
                 .should( 'be.visible' )
                 .should( 'have.length', 6 );
 
-            //cy.screenshot();
+            // cy.screenshot( { overwrite: true } );
         } );
 
         it( 'Відкрити першу сторінку, довантажити пости через "Load More", відкрити будь-який та перевірити його', () =>
         {
-            cy.visit( baseUrl );
-
             cy.intercept( 'GET', '**/posts_ajax.php?page=2' ).as( 'postsLoadMore' );
 
             cy.get( '#load-more' )
@@ -79,25 +78,27 @@ describe(
                 }
             );
 
-            // let articleTitle;
-            // cy.get('main.main-posts > div.posts > article:nth-child(5) > a.title > h2')
-            //     .then( val => articleTitle = Cypress.$(val).text() );
-            // cy.log(articleTitle);
-            // cy.log( Cypress.$('main.main-posts > div.posts > article:nth-child(5) > a.title > h2').text() );
-
             cy.get( 'main.main-posts > div.posts > article:nth-child(5) > a.title' )
-                .should( 'be.visible' )
-                .click();
+                .then(
+                    ( el ) =>
+                    {
+                        return {
+                            'title': el.text(),
+                        };
+                    }
+                ).then(
+                    ( articleData ) =>
+                    {
+                        cy.get( 'main.main-posts > div.posts > article:nth-child(5) > a.title' )
+                            .should( 'be.visible' )
+                            .click();
 
-            const articleUrl = '/single.php?id=4';          // TODO
-            const articleTitle = 'Xbox Design Lab Returns, Supports Next-Gen Controller Designs';       // TODO
+                        cy.get( 'main > article div > h1' )
+                            .should( 'contain.text', articleData.title );
 
-            cy.url().should( 'include', articleUrl );
-
-            cy.get( 'main > article div > h1' )
-                .should( 'contain.text', articleTitle );
-
-            //cy.screenshot();
+                        // cy.screenshot( { overwrite: true } );
+                    }
+                );
         } );
     }
 );
@@ -125,24 +126,29 @@ describe(
     {},
     () =>
     {
-        let baseUrl;
+        let
+            baseUrl,
+            userAuthorizeData;
 
         before( () =>
         {
             baseUrl = Cypress.env( 'url' ).toString();
+
+            const users = Cypress.env( 'users' );
+            userAuthorizeData = users[ Math.floor( Math.random() * users.length ) ];
         } );
 
         beforeEach( () =>
         {
             // авторизація (або відновлення сесії)
-            utilsUser.authorize();
+            utilsUser.authorize( userAuthorizeData );
 
             cy.visit( baseUrl );
         } );
 
         it( 'Авторизуватись', () =>
         {
-            cy.visit( baseUrl );
+
         } );
 
         it( 'Відкрити першу сторінку, перевірити що відображено 3 записи', () =>
@@ -151,7 +157,7 @@ describe(
                 .should( 'be.visible' )
                 .should( 'have.length', 3 );
 
-            //cy.screenshot();
+            // cy.screenshot( { overwrite: true } );
         } );
 
         it( 'Перейти на сторінку додавання категорії та додати її', () =>
@@ -161,7 +167,7 @@ describe(
                 .click();
 
             const
-                currentTimestamp = ( new Date().getTime() ),
+                currentTimestamp = new Date().getTime(),
                 categoryName = 'Test Category #' + currentTimestamp,
                 categoryAlias = 'test-category-' + currentTimestamp,
                 categorySuccessMessage = 'Категорію "' + categoryName + '" успішно додано';
@@ -185,7 +191,7 @@ describe(
             cy.get( '.main-form .success-general-text' )
                 .should( 'contain', categorySuccessMessage );
 
-            //cy.screenshot();
+            // cy.screenshot( { overwrite: true } );
         } );
 
         it( 'Перейти на сторінку додавання поста, додати його та відкрити', () =>
@@ -195,7 +201,7 @@ describe(
                 .click();
 
             const
-                currentTimestamp = ( new Date().getTime() ),
+                currentTimestamp = new Date().getTime(),
                 postTitle = 'Тестовий запис #' + currentTimestamp,
                 postDescription = `Тестовий опис для тестового запису #${ currentTimestamp }`,
                 postContent = `<p>Тестовий контент для тестового запису #${ currentTimestamp }</p>`,
@@ -252,7 +258,7 @@ describe(
                 .focus()
                 .click();
 
-            //cy.screenshot();
+            // cy.screenshot( { overwrite: true } );
 
             cy.get( 'main > article div > h1' )
                 .should( 'contain', postTitle );
