@@ -9,6 +9,8 @@ services:                                         # ОПИС СЕРВІСІВ
     volumes:                                      # монтування томів (persistent storage) всередину контейнера
       - rtacademy_g2_database_data:/var/lib/mysql
       - ./docker/rtacademy_g2_database/import/:/import/:ro
+    ports:                                        # список відкритих назовні портів <hostPort>:<containerPort>
+      - "127.0.0.1:3388:3306/tcp"
     environment:                                  # змінні оточення
       MYSQL_ROOT_USER: root
       MYSQL_ROOT_PASSWORD: secretpassword
