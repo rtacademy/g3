@@ -1,4 +1,9 @@
+import { utilsResponse } from "./utilsResponse";
+
 const utilsUser = {};
+
+const baseUrl           = Cypress.env( 'url' ).toString();
+const timeoutDefault    = parseInt( Cypress.env( 'timeouts' ).default );
 
 utilsUser.checkAuthCookie = () =>
 {
@@ -11,34 +16,62 @@ utilsUser.checkAuthCookie = () =>
 
 utilsUser.authorize = ( userAuthorizeData ) =>
 {
-    const baseUrl = Cypress.env( 'url' ).toString();
     const { login, password, firstname } = userAuthorizeData;
 
     cy.session( [ login, password ], () =>
     {
-        cy.visit( baseUrl );
+        cy.visit(
+            baseUrl,
+            {
+                timeout: timeoutDefault
+            }
+        );
+
+        cy.intercept( 'GET', '**/login.php' )
+            .as( 'loginPage' );
 
         cy.get( 'footer .nav #user-area-login' )
             .should( 'be.visible' )
             .click();
 
-        cy.get( '.main-form #form-user-login' )
+        let pageLoadStart = new Date().getTime();
+
+        cy.wait( '@loginPage' )
+            .should( ( { response } ) =>
+                utilsResponse.checkTimeoutContentTypeStatus(
+                    response, pageLoadStart, timeoutDefault
+                )
+            );
+
+        cy.intercept( 'POST', '**/login.php' )
+            .as( 'loginPagePost' );
+
+        cy.get( '#form-user-login' )
             .should( 'be.visible' )
             .focus()
             .type( login, { delay: 10 } )
             .should( 'have.value', login );
 
-        cy.get( '.main-form #form-user-password' )
+        cy.get( '#form-user-password' )
             .should( 'be.visible' )
             .focus()
             .type( password, { delay: 10 } )
             .should( 'have.value', password );
 
-        cy.get( '.main-form #form-user-submit' )
+        cy.get( '#form-user-submit' )
             .should( 'be.visible' )
             // ?? .should( 'be.not.disabled' ) // TODO
             .focus()
             .click();
+
+        pageLoadStart = new Date().getTime();
+
+        cy.wait( '@loginPagePost' )
+            .should( ( { response } ) =>
+                utilsResponse.checkTimeoutContentTypeStatus(
+                    response, pageLoadStart, timeoutDefault, 302
+                )
+            );
 
         cy.get( 'footer .nav ul li:first-child' )
             .should( 'contain', firstname );
@@ -50,10 +83,13 @@ utilsUser.authorize = ( userAuthorizeData ) =>
 
 utilsUser.deAuthorize = () =>
 {
-    const baseUrl = Cypress.env( 'url' ).toString();
-
     // Деавторизація
-    cy.visit( baseUrl + 'logout.php' );
+    cy.visit(
+        baseUrl + 'logout.php',
+        {
+            timeout: timeoutDefault
+        }
+    );
 
     // Очистка cookies
     cy.clearCookies();
