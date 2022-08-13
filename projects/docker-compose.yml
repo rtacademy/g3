@@ -23,7 +23,8 @@ services:                                         # ОПИС СЕРВІСІВ
     deploy:
       resources:
         limits:
-          memory: "2048M"
+          cpus: 2
+          memory: "512M"
 
   # PHP-FPM Services
 #  rtacademy_blog_app_frontend:
@@ -88,7 +89,8 @@ services:                                         # ОПИС СЕРВІСІВ
     deploy:
       resources:
         limits:
-          memory: "512M"
+          cpus: 2
+          memory: "256M"
 
   # Nginx Service
   rtacademy_blog_web:
@@ -119,7 +121,8 @@ services:                                         # ОПИС СЕРВІСІВ
     deploy:
       resources:
         limits:
-          memory: "512M"
+          cpus: 2
+          memory: "256M"
 
 # Networks
 networks:                                         # ОПИС МЕРЕЖ
