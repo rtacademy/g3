@@ -107,6 +107,9 @@ describe(
                             .should( 'be.visible' )
                             .click();
 
+                        // TODO: page load time
+                        // TODO: http status
+
                         cy.get( 'main > article div > h1' )
                             .should( 'contain.text', articleData.title );
 

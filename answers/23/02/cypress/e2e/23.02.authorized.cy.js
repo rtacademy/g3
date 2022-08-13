@@ -231,6 +231,9 @@ describe(
                 .should( 'be.visible' )
                 .should( 'contain', postTitle )
                 .click();
+
+            // TODO: page load time
+            // TODO: http status
         } );
 
         after(
