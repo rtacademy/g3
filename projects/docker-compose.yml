@@ -23,7 +23,7 @@ services:                                         # ОПИС СЕРВІСІВ
     deploy:
       resources:
         limits:
-          cpus: 2
+          cpus: "2"
           memory: "512M"
 
   # PHP-FPM Services
@@ -89,7 +89,7 @@ services:                                         # ОПИС СЕРВІСІВ
     deploy:
       resources:
         limits:
-          cpus: 2
+          cpus: "2"
           memory: "256M"
 
   # Nginx Service
@@ -121,7 +121,7 @@ services:                                         # ОПИС СЕРВІСІВ
     deploy:
       resources:
         limits:
-          cpus: 2
+          cpus: "2"
           memory: "256M"
 
 # Networks
