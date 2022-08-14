@@ -7,7 +7,13 @@
 * [CSS](./answers/03)
 * [JS](./answers/06) 
 * [Docker](./answers/07) 
+* [PHP](./answers/11) 
+* [Автоматизація API](./answers/22) 
+* [Cypress](./answers/23) 
 
 #### Projects
 
 * [Blog](./projects/blog)
+* [Blog Admin](./projects/blog_admin)
+* [Blog API](./projects/blog_api)
+* [Blog for autotests](./projects/blog_autotests)
