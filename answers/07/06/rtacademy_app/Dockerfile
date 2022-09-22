@@ -9,7 +9,7 @@ RUN \
     && apt-get install -y libmagickwand-dev --no-install-recommends \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-configure curl \
-    && docker-php-ext-install -j$(nproc) curl fileinfo gd iconv intl json mbstring pdo_mysql pdo_pgsql \
+    && docker-php-ext-install -j$(nproc) curl fileinfo gd iconv intl pdo_mysql pdo_pgsql \
     && printf "\n" | pecl install imagick \
     && docker-php-ext-enable imagick \
     && apt clean \
