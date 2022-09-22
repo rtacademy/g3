@@ -10,3 +10,5 @@
 /projects/*/vendor/
 
 node_modules/
+
+/answers/12/01/wordpress_blog/

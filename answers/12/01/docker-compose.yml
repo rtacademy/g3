@@ -1,0 +1,66 @@
+# Services
+services:                                         # ОПИС СЕРВІСІВ
+
+  # MariaDB Service
+  rtacademy_wordpress_database:                   # назва сервіса
+    image: mariadb:latest                         # основний образ та версія
+    container_name: rtacademy_wordpress_database  # назва контейнера
+    restart: unless-stopped                       # політика перезавантажень сервіса (пока не буде зупинено)
+    volumes:                                      # монтування томів (persistent storage) всередину контейнера
+      - rtacademy_wordpress_database_data:/var/lib/mysql
+    ports:                                        # список відкритих назовні портів <hostPort>:<containerPort>
+      - "127.0.0.1:3307:3306/tcp"                 # (відкрити підʼєднання на порт 3306 за межами контейнера тільки з локальної адреси IPv4 та на порт 3307  за протоколом TCP)
+    environment:                                  # змінні оточення
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: secretpassword
+      MYSQL_DATABASE: blog_wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    networks:                                     # локальна мережа контейнера
+      - rtacademy_wordpress_network
+
+  # PHP-FPM Service
+  rtacademy_wordpress_app:                        # назва сервіса
+    image: wordpress:php8.1-fpm                   # основний образ та версія
+    container_name: rtacademy_wordpress_app       # назва контейнера
+    restart: unless-stopped                       # політика перезавантажень сервіса (допоки не буде зупинено)
+    environment:
+      - WORDPRESS_DB_HOST=rtacademy_wordpress_database:3306
+      - WORDPRESS_DB_NAME=blog_wordpress
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=wordpress
+    working_dir: /var/www                         # робоча директорія
+    volumes:                                      # монтування томів (persistent storage) всередину контейнера
+      - ./wordpress_blog:/var/www:rw              # тут необхідно в лівому аргументі (до двокрапки) вказати коректний шлях до ваших файлів
+      - ./rtacademy_wordpress_app/usr/local/etc/php/conf.d/settings.ini:/usr/local/etc/php/conf.d/settings.ini    # додаткові налаштування PHP
+    depends_on:                                   # цей сервіс залежить від наступних сервісів
+      - rtacademy_wordpress_database
+    networks:                                     # локальна мережа контейнера
+      - rtacademy_wordpress_network
+
+  # Nginx Service
+  rtacademy_wordpress_web:                        # назва сервіса
+    image: nginx:latest                           # основний образ та версія
+    container_name: rtacademy_wordpress_web       # назва контейнера
+    restart: unless-stopped                       # політика перезавантажень сервіса (допоки не буде зупинено)
+    working_dir: /var/www                         # робоча директорія
+    volumes:                                      # монтування томів (persistent storage) всередину контейнера
+      - ./wordpress_blog:/var/www:ro              # тут необхідно в лівому аргументі (до двокрапки) вказати коректний шлях до ваших файлів
+      - ./rtacademy_wordpress_web/etc/nginx/conf.d:/etc/nginx/conf.d                                              # налаштування веб-севрвера nginx
+    ports:                                        # список відкритих назовні портів <hostPort>:<containerPort>
+      - "0.0.0.0:8080:80/tcp"                     # (відкрити підʼєднання на порт 80 за межами контейнера з будь-якої адреси IPv4 та на порт 8080 за протоколом TCP)
+    depends_on:                                   # цей сервіс залежить від наступних сервісів
+      - rtacademy_wordpress_app
+    networks:                                     # локальна мережа контейнера
+      - rtacademy_wordpress_network
+
+# Networks
+networks:                                         # ОПИС МЕРЕЖ
+  rtacademy_wordpress_network:
+    name: rtacademy_wordpress_network             # назва мережі
+    driver: bridge                                # тип підʼєднання (default)
+
+# Volumes
+volumes:                                          # ОПИС ТОМІВ
+  rtacademy_wordpress_database_data:
+    name: rtacademy_wordpress_database_data       # назва тому
