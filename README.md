@@ -8,6 +8,8 @@
 * [JS](./answers/06) 
 * [Docker](./answers/07) 
 * [PHP](./answers/11) 
+* [Wordpress](./answers/12) 
+* [Symfony](./answers/13) 
 * [Автоматизація API](./answers/22) 
 * [Cypress](./answers/23) 
 
