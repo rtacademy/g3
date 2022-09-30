@@ -11,8 +11,8 @@
             </article>
         {% endif %}
 
-        <div class="posts">
-            {% if posts|length > 0 %}
+        {% if posts|length > 0 %}
+            <div class="posts">
                 {% for post in posts %}
                     <article id="post-{{ post.id }}">
                         <a href="#" class="cover">
@@ -29,11 +29,13 @@
                         <a href="#" class="more">Continue Reading</a>
                     </article>
                 {% endfor %}
-            {% else %}
-                <div class="no-articles">No articles</div>
-            {% endif %}
-        </div>
+            </div>
 
-        {# TODO: пагінація/pagination #}
+            {# TODO: пагінація/pagination #}
+        {% else %}
+            <div class="posts">
+                <div class="no-articles">No articles</div>
+            </div>
+        {% endif %}
     </main>
 {% endblock %}
