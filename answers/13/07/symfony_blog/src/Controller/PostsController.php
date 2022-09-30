@@ -28,7 +28,7 @@ class PostsController extends AbstractController
     }
 
     #[Route('/post/{id}-{alias}', name: 'post_view', methods: ['GET', 'HEAD'])]
-    public function view( int $id, PostRepository $postRepository ): Response
+    public function view( int $id, string $alias, PostRepository $postRepository ): Response
     {
         // Отримання активного запису за ID
         $post = $postRepository->getActivePost( $id );
@@ -36,6 +36,19 @@ class PostsController extends AbstractController
         if( !$post )
         {
             throw $this->createNotFoundException( 'Post with #' . $id . ' not found' );
+        }
+
+        if( $post->getAlias() !== $alias )
+        {
+            // на випадок некоректного alias у URI -> переходимо до коректної сторінки
+            return $this->redirectToRoute(
+                'post_view',
+                [
+                    'id'    => $post->getId(),
+                    'alias' => $post->getAlias(),
+                ],
+                301
+            );
         }
 
         return $this->render(
