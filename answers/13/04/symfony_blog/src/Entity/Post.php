@@ -35,7 +35,7 @@ class Post
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Category $category = null;
+    private ?PostCategory $category = null;
 
     public function getId(): ?int
     {
@@ -114,12 +114,12 @@ class Post
         return $this;
     }
 
-    public function getCategory(): ?Category
+    public function getCategory(): ?PostCategory
     {
         return $this->category;
     }
 
-    public function setCategory(?Category $category): self
+    public function setCategory(?PostCategory $category): self
     {
         $this->category = $category;
 
