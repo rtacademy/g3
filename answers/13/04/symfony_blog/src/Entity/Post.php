@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
 {
+    public const STATUS_PUBLISHED = 'published';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -36,6 +38,10 @@ class Post
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?PostCategory $category = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?PostCover $cover = null;
 
     public function getId(): ?int
     {
@@ -122,6 +128,18 @@ class Post
     public function setCategory(?PostCategory $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getCover(): ?PostCover
+    {
+        return $this->cover;
+    }
+
+    public function setCover(?PostCover $cover): self
+    {
+        $this->cover = $cover;
 
         return $this;
     }

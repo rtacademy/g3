@@ -19,10 +19,6 @@ class PostCover
     #[ORM\Column(length: 64, nullable: true)]
     private ?string $title = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Post $post = null;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -48,18 +44,6 @@ class PostCover
     public function setTitle(?string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getPost(): ?Post
-    {
-        return $this->post;
-    }
-
-    public function setPost(?Post $post): self
-    {
-        $this->post = $post;
 
         return $this;
     }
