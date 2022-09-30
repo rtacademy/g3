@@ -90,7 +90,7 @@ services:                                         # ОПИС СЕРВІСІВ
       resources:
         limits:
           cpus: "2"
-          memory: "256M"
+          memory: "512M"
 
   # Nginx Service
   rtacademy_blog_web:
@@ -122,7 +122,7 @@ services:                                         # ОПИС СЕРВІСІВ
       resources:
         limits:
           cpus: "2"
-          memory: "256M"
+          memory: "512M"
 
 # Networks
 networks:                                         # ОПИС МЕРЕЖ

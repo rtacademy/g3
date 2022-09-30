@@ -13,7 +13,7 @@ services:                                         # ОПИС СЕРВІСІВ
     environment:                                  # змінні оточення
       MYSQL_ROOT_USER: root
       MYSQL_ROOT_PASSWORD: secretpassword
-      MYSQL_DATABASE: blog_rtacademy_symfony
+      MYSQL_DATABASE: blog_symfony
       MYSQL_USER: rtacademy_symfony
       MYSQL_PASSWORD: rtacademy_symfony
     networks:                                     # локальна мережа контейнера
