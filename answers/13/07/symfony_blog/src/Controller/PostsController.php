@@ -26,4 +26,23 @@ class PostsController extends AbstractController
             ]
         );
     }
+
+    #[Route('/post/{id}-{alias}', name: 'post_view', methods: ['GET', 'HEAD'])]
+    public function view( int $id, PostRepository $postRepository ): Response
+    {
+        // Отримання активного запису за ID
+        $post = $postRepository->getActivePost( $id );
+
+        if( !$post )
+        {
+            throw $this->createNotFoundException( 'Post with #' . $id . ' not found' );
+        }
+
+        return $this->render(
+            'posts/view.html.twig',
+            [
+                'post' => $post,
+            ]
+        );
+    }
 }

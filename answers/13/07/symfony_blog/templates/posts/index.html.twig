@@ -7,7 +7,7 @@
 
         {% if top_post %}
             <article class="top-article">
-                TOP ARTICLE <a href="#">{{ top_post.title }}</a>
+                TOP ARTICLE <a href="{{ path('post_view', {id: top_post.id, alias: top_post.alias}) }}">{{ top_post.title }}</a>
             </article>
         {% endif %}
 
@@ -15,7 +15,7 @@
             {% if posts|length > 0 %}
                 {% for post in posts %}
                     <article id="post-{{ post.id }}">
-                        <a href="#" class="cover">
+                        <a href="{{ path('post_view', {id: post.id, alias: post.alias}) }}" class="cover">
                             <img
                                 src="{{ asset('images/' ~ post.cover.filename ~ '_310.jpg') }}"
                                 srcset="{{ asset('images/' ~ post.cover.filename ~ '_310.jpg') }} 310w, {{ asset('images/' ~ post.cover.filename ~ '_350.jpg') }} 350w, {{ asset('images/' ~ post.cover.filename ~ '_550.jpg') }} 550w, {{ asset('images/' ~ post.cover.filename ~ '_640.jpg') }} 640w"
@@ -23,10 +23,10 @@
                                 alt="{{ post.cover.title|e }}"
                             />
                         </a>
-                        <a href="#" class="title"><h2>{{ post.title }}</h2></a>
+                        <a href="{{ path('post_view', {id: post.id, alias: post.alias}) }}" class="title"><h2>{{ post.title }}</h2></a>
                         <time datetime="{{ post.publishDate|date('c') }}">{{ post.publishDate|date('d.m.Y H:i') }}</time>
-                        <a href="#" class="description">{{ post.content|striptags|slice(0,240) }}</a>
-                        <a href="#" class="more">Continue Reading</a>
+                        <a href="{{ path('post_view', {id: post.id, alias: post.alias}) }}" class="description">{{ post.content|striptags|slice(0,240) }}</a>
+                        <a href="{{ path('post_view', {id: post.id, alias: post.alias}) }}" class="more">Continue Reading</a>
                     </article>
                 {% endfor %}
             {% else %}

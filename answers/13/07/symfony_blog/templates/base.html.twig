@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ asset('/css/style.css') }}" media="all">
+    <title>{% block title %}{% endblock %}Gaming News</title>
+</head>
+<body>
+
+<header>
+    <a href="/" class="logo"><h1>Gaming News</h1></a>
+    <nav>
+        <!-- TODO -->
+    </nav>
+</header>
+
+{% block body %}{% endblock %}
+
+<footer>
+
+    <div class="inner">
+
+        <div class="main">
+            <h3><a href="/">Gaming News</a></h3>
+
+            <ul class="social">
+                <li><a href="#"><img src="{{ asset('images/icons/001-facebook.svg') }}" alt="facebook"></a></li>
+                <li><a href="#"><img src="{{ asset('images/icons/013-twitter.svg') }}" alt="twitter"></a></li>
+                <li><a href="#"><img src="{{ asset('images/icons/008-youtube.svg') }}" alt="youtube"></a></li>
+            </ul>
+
+            <p>&copy; Copyright, {{ "now"|date("Y") }}</p>
+        </div>
+
+        <div class="nav">
+            <!-- TODO -->
+        </div>
+
+        <div class="nav">
+            <!-- TODO -->
+        </div>
+    </div>
+
+</footer>
+
+</body>
+</html>
