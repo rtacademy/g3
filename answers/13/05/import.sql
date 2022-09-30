@@ -9,7 +9,7 @@ VALUES
 
 
 INSERT INTO
-    category (alias, title)
+    post_category (alias, title)
 VALUES
     ('pc', 'PC'),
     ('playstation', 'Playstation'),
