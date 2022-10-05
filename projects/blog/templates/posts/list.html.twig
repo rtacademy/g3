@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Posts | {% endblock %}
+
+{% block body %}
+    <main class="main-posts">
+        {% if posts|length > 0 %}     {# тут є бага (можливо у \Doctrine\ORM\Tools\Pagination\Paginator) при запиті /post/list/100500 - не переходить до else{} #}
+            <div class="posts">
+                {% for post in posts %}
+                    <article id="post-{{ post.id }}">
+                        <a href="{{ path('post_view', {id: post.id, alias: post.alias}) }}" class="cover">
+                            <img
+                                src="{{ asset('images/' ~ post.cover.filename ~ '_310.jpg') }}"
+                                srcset="{{ asset('images/' ~ post.cover.filename ~ '_310.jpg') }} 310w, {{ asset('images/' ~ post.cover.filename ~ '_350.jpg') }} 350w, {{ asset('images/' ~ post.cover.filename ~ '_550.jpg') }} 550w, {{ asset('images/' ~ post.cover.filename ~ '_640.jpg') }} 640w"
+                                sizes="(max-width: 48rem) 550px, (max-width: 62rem) 350px, (max-width: 75rem) 310px, 550px"
+                                alt="{{ post.cover.title|e }}"
+                            />
+                        </a>
+                        <a href="{{ path('post_view', {id: post.id, alias: post.alias}) }}" class="title"><h2>{{ post.title }}</h2></a>
+                        <time datetime="{{ post.publishDate|date('c') }}">{{ post.publishDate|date('d.m.Y H:i') }}</time>
+                        <a href="{{ path('post_view', {id: post.id, alias: post.alias}) }}" class="description">{{ post.content|striptags|slice(0,240) }}</a>
+                        <a href="{{ path('post_view', {id: post.id, alias: post.alias}) }}" class="more">Continue Reading</a>
+                    </article>
+                {% endfor %}
+            </div>
+
+            <nav class="pagination">
+                {% if previous_page_offset == 0 %}
+                    <a href="{{ path('homepage') }}">Previous</a>
+                {% elseif previous_page_offset > 0 %}
+                    <a href="{{ path('posts_list', { offset: previous_page_offset }) }}">Previous</a>
+                {% endif %}
+                {% if next_page_offset < posts|length %}
+                    <a href="{{ path('posts_list', { offset: next_page_offset }) }}">Next</a>
+                {% endif %}
+            </nav>
+        {% else %}
+            <div class="posts">
+                <div class="no-articles">No articles</div>
+            </div>
+        {% endif %}
+    </main>
+{% endblock %}

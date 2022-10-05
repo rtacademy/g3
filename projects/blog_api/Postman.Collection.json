@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "3838b573-92f0-40bd-ab9e-5e1703881c38",
+		"_postman_id": "4a51d22b-b7e6-4959-b436-017afa67d266",
 		"name": "RTAcademyBlog",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -63,7 +63,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"login\": \"rt\",\n    \"password\": \"helloworld\",\n    \"email\": \"roman@rtacademy.net\",\n    \"lastname\": \"Roman\",\n    \"firstname\": \"Roman\"\n}",
+							"raw": "{\n    \"login\": \"rt2\",\n    \"password\": \"password\",\n    \"email\": \"roman2@rtacademy.net\",\n    \"lastname\": \"Roman2\",\n    \"firstname\": \"Roman2\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -183,191 +183,6 @@
 							"path": [
 								"users",
 								"{{user_id}}"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Category",
-			"item": [
-				{
-					"name": "Retrieve Resources",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://{{host_api}}/categories?page=1",
-							"protocol": "http",
-							"host": [
-								"{{host_api}}"
-							],
-							"path": [
-								"categories"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"title\": \"Категорія 1\",\n  \"alias\": \"category-1\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://{{host_api}}/categories",
-							"protocol": "http",
-							"host": [
-								"{{host_api}}"
-							],
-							"path": [
-								"categories"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Replace",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"title\": \"Категорія 1\",\n  \"alias\": \"category-1\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://{{host_api}}/categories/{{category_id}}",
-							"protocol": "http",
-							"host": [
-								"{{host_api}}"
-							],
-							"path": [
-								"categories",
-								"{{category_id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Retrieve Resource",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://{{host_api}}/categories/{{category_id}}",
-							"protocol": "http",
-							"host": [
-								"{{host_api}}"
-							],
-							"path": [
-								"categories",
-								"{{category_id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://{{host_api}}/categories/{{category_id}}",
-							"protocol": "http",
-							"host": [
-								"{{host_api}}"
-							],
-							"path": [
-								"categories",
-								"{{category_id}}"
 							]
 						}
 					},
@@ -553,6 +368,191 @@
 							"path": [
 								"posts",
 								"{{post_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post Category",
+			"item": [
+				{
+					"name": "Retrieve Resources",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host_api}}/post_categories?page=1",
+							"protocol": "http",
+							"host": [
+								"{{host_api}}"
+							],
+							"path": [
+								"post_categories"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Категорія 1\",\n  \"alias\": \"category-1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host_api}}/categories",
+							"protocol": "http",
+							"host": [
+								"{{host_api}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Replace",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Категорія 1\",\n  \"alias\": \"category-1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host_api}}/categories/{{category_id}}",
+							"protocol": "http",
+							"host": [
+								"{{host_api}}"
+							],
+							"path": [
+								"categories",
+								"{{category_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Resource",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host_api}}/categories/{{category_id}}",
+							"protocol": "http",
+							"host": [
+								"{{host_api}}"
+							],
+							"path": [
+								"categories",
+								"{{category_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host_api}}/post_categories/{{category_id}}",
+							"protocol": "http",
+							"host": [
+								"{{host_api}}"
+							],
+							"path": [
+								"post_categories",
+								"{{category_id}}"
 							]
 						}
 					},

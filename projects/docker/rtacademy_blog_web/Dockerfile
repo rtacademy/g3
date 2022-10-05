@@ -3,8 +3,8 @@ FROM nginx:latest
 RUN \
     rm -Rf /etc/nginx/sites-enabled/* /etc/nginx/sites-available/*
 
-COPY etc/nginx/nginx.conf               /etc/nginx/
-COPY etc/nginx/sites-enabled/*          /etc/nginx/sites-enabled/
+COPY ./docker/rtacademy_blog_web/etc/nginx/nginx.conf               /etc/nginx/
+COPY ./docker/rtacademy_blog_web/etc/nginx/sites-enabled/*          /etc/nginx/sites-enabled/
 
 EXPOSE 80/tcp
 

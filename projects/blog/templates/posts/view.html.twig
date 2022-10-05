@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ post.title }} | {% endblock %}
+
+{% block body %}
+    <main class="main-post">
+        <article id="post-{{ post.id }}" class="post">
+            <div class="post-image">
+                <img
+                    src="{{ asset('images/' ~ post.cover.filename ~ '_1200.jpg') }}"
+                    alt="{{ post.cover.title|e }}"
+                />
+
+                <div class="post-header">
+                    <h1>{{ post.title }}</h1>
+
+                    <div class="post-info">
+                        <div class="author">
+                            <div>Author:</div>
+                            <a href="#">{{ post.author.firstName }} {{ post.author.lastName }}</a>
+                        </div>
+
+                        <div class="date">
+                            <div>Published on:</div>
+                            <time datetime="{{ post.publishDate|date('c') }}">{{ post.publishDate|date('d.m.Y H:i') }}</time>
+                        </div>
+
+                        <div class="category">
+                            <div>Category:</div>
+                            <a href="#">{{ post.category.title }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="post-content">
+                <div class="text">
+                    {{ post.content|raw }}
+                </div>
+            </div>
+        </article>
+    </main>
+{% endblock %}
