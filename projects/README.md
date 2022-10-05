@@ -8,7 +8,7 @@ $ echo "127.0.0.1    blog.local admin.blog.local api.blog.local" | sudo tee -a /
 ```
 $ cd /path/to/docker-compose.yml
 ``` 
-де `/path/to/docker-compose.yml` - шлях до папки з файлом `docker-compose.yml`
+де `/path/to/docker-compose.yml` - шлях до теки з файлом `docker-compose.yml`
 ``` 
 $ chmod -R 777 .
 $ docker compose up -d
@@ -34,7 +34,7 @@ $ docker exec rtacademy_blog_database_mariadb /bin/bash -c "mysql -u blog -ppass
 ```
 $ cd /path/to/docker-compose.yml
 ``` 
-де `/path/to/docker-compose.yml` - шлях до папки з файлом `docker-compose.yml`
+де `/path/to/docker-compose.yml` - шлях до теки з файлом `docker-compose.yml`
 ``` 
 $ docker compose up -d
 ```

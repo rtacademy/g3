@@ -5,7 +5,7 @@
 ```
 $ cd /path/to/docker-compose.yml
 ``` 
-де `/path/to/docker-compose.yml` - шлях до папки з файлом `docker-compose.yml`
+де `/path/to/docker-compose.yml` - шлях до теки з файлом `docker-compose.yml`
 ``` 
 $ chmod -R 777 .
 $ docker compose up -d
@@ -28,7 +28,7 @@ $ docker exec rtacademy_g2_database /bin/bash -c "mysql -u rtacademy_g2 -prtacad
 ```
 $ cd /path/to/docker-compose.yml
 ``` 
-де `/path/to/docker-compose.yml` - шлях до папки з файлом `docker-compose.yml`
+де `/path/to/docker-compose.yml` - шлях до теки з файлом `docker-compose.yml`
 ``` 
 $ docker compose up -d
 ```
