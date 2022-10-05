@@ -12,6 +12,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity( repositoryClass: PostCoverRepository::class )]
 #[UniqueEntity( 'filename' )]
 #[ApiResource(
+    security: "is_granted('ROLE_API')",
+    formats: [ 'json' ],
     collectionOperations: [
         'get'  =>
         [

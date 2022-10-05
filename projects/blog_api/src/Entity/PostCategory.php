@@ -15,6 +15,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity( repositoryClass: PostCategoryRepository::class )]
 #[UniqueEntity( 'alias' )]
 #[ApiResource(
+    security: "is_granted('ROLE_API')",
+    formats: [ 'json' ],
     collectionOperations: [
         'get'  =>
         [

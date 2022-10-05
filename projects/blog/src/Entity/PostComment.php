@@ -10,6 +10,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity( repositoryClass: PostCommentRepository::class )]
 #[ApiResource(
+    security: "is_granted('ROLE_API')",
+    formats: [ 'json' ],
     collectionOperations: [
         'get'  =>
         [

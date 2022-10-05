@@ -16,6 +16,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity( 'login' )]
 #[UniqueEntity( 'email' )]
 #[ApiResource(
+    security: "is_granted('ROLE_API')",
+    formats: [ 'json' ],
     collectionOperations: [
         'get'  =>
         [
