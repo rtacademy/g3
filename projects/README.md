@@ -19,8 +19,14 @@ $ docker exec rtacademy_blog_app_frontend /bin/bash -c "symfony console doctrine
 $ docker exec rtacademy_blog_database_mariadb /bin/bash -c "mysql -u blog -ppassword blog < /tmp/import.sql"
 ```
 
-### API:
-Відкрити http://api.blog.local/ для перегляду документації.
+### Blog
+Відкрити http://blog.local/ для перегляду публічної частини блогу
+
+### Blog Admin
+Відкрити http://admin.blog.local/ для перегляду панелі адміністратора для керування блогом
+
+### API
+Відкрити http://api.blog.local/ для перегляду документації по API для керування блогом
 
 Також доступна [колекція](./blog_api/Postman.Collection.json) та [змінні оточення](./blog_api/Postman.Environment.json) Postman.
 
