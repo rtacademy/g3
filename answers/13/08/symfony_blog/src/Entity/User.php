@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -27,6 +28,9 @@ class User
 
     #[ORM\Column(length: 64)]
     private ?string $firstname = null;
+
+    #[ORM\Column(type: Types::JSON)]
+    private array $roles = [];
 
     public function getId(): ?int
     {
