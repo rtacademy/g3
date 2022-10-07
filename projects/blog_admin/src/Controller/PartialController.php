@@ -9,11 +9,6 @@ class PartialController extends AbstractController
 {
     public function menu(): Response
     {
-        return $this->render(
-            'partial/_menu.html.twig',
-            [
-
-            ]
-        );
+        return $this->render( 'partial/_menu.html.twig' );
     }
 }
