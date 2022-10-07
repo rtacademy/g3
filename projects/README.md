@@ -10,7 +10,7 @@ $ cd /path/to/docker-compose.yml
 ``` 
 де `/path/to/docker-compose.yml` - шлях до теки з файлом `docker-compose.yml`
 ``` 
-$ chmod -R 777 .
+$ sudo chmod -R 777 .
 $ docker compose up -d
 $ docker exec rtacademy_blog_app_frontend /bin/bash -c "/usr/local/bin/composer install --optimize-autoloader"
 $ docker exec rtacademy_blog_app_admin /bin/bash -c "/usr/local/bin/composer install --optimize-autoloader"
