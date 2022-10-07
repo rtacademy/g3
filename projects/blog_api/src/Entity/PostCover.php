@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity( repositoryClass: PostCoverRepository::class )]
+#[ORM\Table(name: '`post_cover`')]
 #[UniqueEntity( 'filename' )]
 #[ApiResource(
     security: "is_granted('ROLE_API')",

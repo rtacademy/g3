@@ -9,10 +9,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity( repositoryClass: UserRepository::class )]
+#[ORM\Table(name: '`user`')]
 #[UniqueEntity( 'login' )]
 #[UniqueEntity( 'email' )]
 #[ApiResource(
@@ -45,7 +48,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     order: [ 'id' => 'ASC' ],
     paginationEnabled: false,
 )]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -63,6 +66,9 @@ class User
     #[Groups( [ 'list', 'item' ] )]
     private ?string $login = null;
 
+    /**
+     * @var string The hashed password
+     */
     #[ORM\Column( type: Types::STRING, length: 128 )]
     #[Assert\NotBlank]
     private ?string $password = null;
@@ -94,6 +100,9 @@ class User
     )]
     #[Groups( [ 'list', 'item' ] )]
     private ?string $firstname = null;
+
+    #[ORM\Column(type: Types::JSON)]
+    private array $roles = [];
 
     public function __construct()
     {
@@ -163,5 +172,43 @@ class User
         $this->firstname = $firstname;
 
         return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->login;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }

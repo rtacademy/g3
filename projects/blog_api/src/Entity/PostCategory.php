@@ -13,6 +13,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity( repositoryClass: PostCategoryRepository::class )]
+#[ORM\Table(name: '`post_category`')]
 #[UniqueEntity( 'alias' )]
 #[ApiResource(
     security: "is_granted('ROLE_API')",

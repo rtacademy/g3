@@ -1,11 +1,11 @@
 INSERT INTO
-    user (login, password, email, firstname, lastname)
+    user (login, password, email, firstname, lastname, roles)
 VALUES
-    ( 'chomura', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'chomura.the.soulkeeper@gmail.com', 'Chomura', 'The Soulkeeper' ),
-    ( 'baselm', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'baselm.the.mute@gmail.com', 'Baselm', 'The Mute' ),
-    ( 'ekralya', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'ekralya.graeme@gmail.com', 'Ekralya', 'Graeme' ),
-    ( 'belazar', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'belazar.the.black@gmail.com', 'Belazar', 'The Black' ),
-    ( 'civras', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'civras.doomweaver@gmail.com', 'Civras', 'Doomweaver' );
+    ( 'chomura', '$2y$13$nZ4tx9qD7IEAG7YWIKvkkOchUNFstvdS7alTsU3SWEZICD41JCs6O', 'chomura.the.soulkeeper@gmail.com', 'Chomura', 'The Soulkeeper', '["ROLE_ADMIN"]' ),
+    ( 'baselm', '$2y$13$nZ4tx9qD7IEAG7YWIKvkkOchUNFstvdS7alTsU3SWEZICD41JCs6O', 'baselm.the.mute@gmail.com', 'Baselm', 'The Mute', '["ROLE_ADMIN"]' ),
+    ( 'ekralya', '$2y$13$nZ4tx9qD7IEAG7YWIKvkkOchUNFstvdS7alTsU3SWEZICD41JCs6O', 'ekralya.graeme@gmail.com', 'Ekralya', 'Graeme', '["ROLE_ADMIN"]' ),
+    ( 'belazar', '$2y$13$nZ4tx9qD7IEAG7YWIKvkkOchUNFstvdS7alTsU3SWEZICD41JCs6O', 'belazar.the.black@gmail.com', 'Belazar', 'The Black', '["ROLE_ADMIN"]' ),
+    ( 'civras', '$2y$13$nZ4tx9qD7IEAG7YWIKvkkOchUNFstvdS7alTsU3SWEZICD41JCs6O', 'civras.doomweaver@gmail.com', 'Civras', 'Doomweaver', '["ROLE_ADMIN"]' );
 
 
 INSERT INTO

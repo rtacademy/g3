@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ asset('/css/style.css') }}" media="all">
-    <title>{% block title %}{% endblock %}Gaming News</title>
+    <meta charset="utf-8" />
+    <title>{% block title %}{% endblock %}Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block css_extended %}
+    <link rel="stylesheet" href="{{ asset('/assets/vendor/daterangepicker/daterangepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/vendor/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css') }}">
+    {% endblock %}
+    <script src="{{ asset('/assets/js/hyper-config.js') }}"></script>
+    <link href="{{ asset('/assets/css/app-saas.min.css') }}" rel="stylesheet" type="text/css" id="app-style" />
+    <link href="{{ asset('/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
 </head>
-<body>
-
 {% block body %}{% endblock %}
-
-</body>
 </html>

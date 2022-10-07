@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login | {% endblock %}
+
+{% block css_extended %}{% endblock %}
+
+{% block body %}
+<body class="authentication-bg pb-0">
+
+    <div class="auth-fluid">
+        <!--Auth fluid left content -->
+        <div class="auth-fluid-form-box">
+            <div class="align-items-center d-flex h-100">
+                <div class="card-body">
+                    <!-- title-->
+                    <h4 class="mt-0">Sign In</h4>
+                    <p class="text-muted mb-4">Enter your login and password to access account.</p>
+
+                    <!-- form -->
+                    {% if error %}
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Error. </strong> {{ error.messageKey|trans(error.messageData, 'security') }}
+                        </div>
+                    {% endif %}
+
+                    <form action="{{ path('user_login') }}" method="post" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Login:</label>
+                            <input class="form-control" required="" placeholder="Enter your login" type="text" id="username" name="_username" value="{{ last_login }}"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password:</label>
+                            <input class="form-control" required="" placeholder="Enter your password" type="password" id="password" name="_password"/>
+                        </div>
+                        <div class="d-grid mb-0 text-center">
+                            <button class="btn btn-primary" type="submit"><i class="mdi mdi-login"></i> Log In </button>
+                        </div>
+                        <input type="hidden" name="_target_path" value="/dashboard"/>
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    </form>
+                    <!-- end form-->
+                </div> <!-- end .card-body -->
+            </div> <!-- end .align-items-center.d-flex.h-100-->
+        </div>
+        <!-- end auth-fluid-form-box-->
+    </div>
+
+    <!-- end auth-fluid-->
+    <script src="{{ asset('/assets/js/vendor.min.js') }}"></script>
+    <script src="{{ asset('/assets/js/app.min.js') }}"></script>
+</body>
+
+{% endblock %}

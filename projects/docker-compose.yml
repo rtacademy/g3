@@ -31,7 +31,7 @@ services:                                         # ОПИС СЕРВІСІВ
     build:
       context: ./
       dockerfile: ./docker/rtacademy_blog_app_frontend/Dockerfile
-    image: rtacademy_blog_app:latest
+    image: rtacademy_blog_app_frontend:latest
     container_name: rtacademy_blog_app_frontend
     restart: unless-stopped
     working_dir: /var/www/blog
@@ -56,7 +56,7 @@ services:                                         # ОПИС СЕРВІСІВ
     build:
       context: ./
       dockerfile: ./docker/rtacademy_blog_app_admin/Dockerfile
-    image: rtacademy_blog_app:latest
+    image: rtacademy_blog_app_admin:latest
     container_name: rtacademy_blog_app_admin
     restart: unless-stopped
     working_dir: /var/www/blog_admin

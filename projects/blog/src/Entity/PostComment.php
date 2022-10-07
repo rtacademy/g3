@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity( repositoryClass: PostCommentRepository::class )]
+#[ORM\Table(name: '`post_comment`')]
 #[ApiResource(
     security: "is_granted('ROLE_API')",
     formats: [ 'json' ],

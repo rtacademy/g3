@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity( repositoryClass: ApiUserRepository::class )]
+#[ORM\Table(name: '`api_user`')]
 #[UniqueEntity( 'token' )]
 class ApiUser implements UserInterface
 {

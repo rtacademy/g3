@@ -11,6 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity( repositoryClass: PostRepository::class )]
+#[ORM\Table(name: '`post`')]
 #[UniqueEntity( 'alias' )]
 #[ApiResource(
     security: "is_granted('ROLE_API')",
