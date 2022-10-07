@@ -6,13 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DashboardController extends AbstractController
+class PostController extends AbstractController
 {
-    #[Route( '/dashboard', name: 'dashboard', methods: [ 'GET' ] )]
+    #[Route( '/post', name: 'posts_list', methods: [ 'GET' ] )]
     public function index(): Response
     {
         return $this->render(
-            'dashboard/index.html.twig',
+            'post/index.html.twig',
             []
         );
     }

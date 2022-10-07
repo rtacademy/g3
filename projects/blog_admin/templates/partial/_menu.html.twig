@@ -1,0 +1,55 @@
+<ul class="side-nav">
+
+    <li class="side-nav-item">
+        <a href="{{ path('dashboard') }}" class="side-nav-link">
+            <i class="uil-home-alt"></i>
+            <span> Dashboard </span>
+        </a>
+    </li>
+
+    <li class="side-nav-title side-nav-item">Posts</li>
+
+    <li class="side-nav-item">
+        <a href="{{ path('posts_list') }}" class="side-nav-link">
+            <i class="uil-file-alt"></i>
+            <span> Posts </span>
+        </a>
+    </li>
+
+    <li class="side-nav-item">
+        <a href="{{ path('posts_comments_list') }}" class="side-nav-link">
+            <i class="uil-comment-alt-message"></i>
+            <span> Posts Comments </span>
+        </a>
+    </li>
+
+    <li class="side-nav-item">
+        <a href="{{ path('posts_covers_list') }}" class="side-nav-link">
+            <i class="uil-scenery"></i>
+            <span> Posts Covers </span>
+        </a>
+    </li>
+
+    <li class="side-nav-item">
+        <a href="{{ path('posts_categories_list') }}" class="side-nav-link">
+            <i class="uil-pricetag-alt"></i>
+            <span> Posts Categories </span>
+        </a>
+    </li>
+
+    <li class="side-nav-title side-nav-item">Administration</li>
+
+    <li class="side-nav-item">
+        <a href="{{ path('users_list') }}" class="side-nav-link">
+            <i class="uil-user"></i>
+            <span> Users </span>
+        </a>
+    </li>
+
+    <li class="side-nav-item">
+        <a href="{{ path('api_users_list') }}" class="side-nav-link">
+            <i class="uil-robot"></i>
+            <span> API Users </span>
+        </a>
+    </li>
+</ul>
