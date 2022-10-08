@@ -1,3 +1,5 @@
+SET NAMES 'utf8' COLLATE 'utf8_unicode_ci';
+
 INSERT INTO
     user (login, password, email, firstname, lastname, roles)
 VALUES

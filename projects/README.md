@@ -16,7 +16,7 @@ $ docker exec rtacademy_blog_app_frontend /bin/bash -c "/usr/local/bin/composer 
 $ docker exec rtacademy_blog_app_admin /bin/bash -c "/usr/local/bin/composer install --optimize-autoloader"
 $ docker exec rtacademy_blog_app_api /bin/bash -c "/usr/local/bin/composer install --optimize-autoloader"
 $ docker exec rtacademy_blog_app_frontend /bin/bash -c "symfony console doctrine:migrations:migrate"
-$ docker exec rtacademy_blog_database_mariadb /bin/bash -c "mysql -u blog -ppassword blog < /tmp/import.sql"
+$ docker exec rtacademy_blog_database_mariadb /bin/bash -c "mysql -u blog -ppassword --default-character-set=utf8 blog < /tmp/import.sql"
 ```
 
 ### Blog
