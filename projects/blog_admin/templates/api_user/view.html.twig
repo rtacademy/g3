@@ -33,6 +33,18 @@
                             {{ apiUser.token }}
                         </div>
                     </div>
+                    <div class="mb-3">
+                        <label>Created Date</label>
+                        <div>
+                            {{ apiUser.createdDate|date('d.m.Y H:i:s') }}
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label>Status</label>
+                        <div>
+                            {{ apiUser.status }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
