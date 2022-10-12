@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Repository\ApiUserRepository;
 use PhpParser\Node\Expr\Cast\Object_;
+use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -80,21 +81,17 @@ class ApiUserController extends AbstractController
     }
 
     /**
-     * @param Object $query
+     * @param \Symfony\Component\HttpFoundation\InputBag $query
      *
      * @return array
      */
-    protected function _getListData( Object $query ) : array
+    protected function _getListData( InputBag $query ): array
     {
-        $draw = (int)$query->get( 'draw', 0 );
-        $limit = (int)$query->get( 'length', 10 );
-        $offset = (int)$query->get( 'start', 0 );
-
-        $tempColumns = $_GET['columns'];        // TODO
-        $tempOrder = $_GET['order'];            // TODO
-
-        $orderby = $tempColumns[ $tempOrder[0]['column'] ?? 0 ]['data'] ?? self::DEFAULT_LIST_ORDERBY_FIELD;
-        $direction = $tempOrder[0]['dir'] ?? self::DEFAULT_LIST_ORDERBY_DIRECTION;
+        $draw      = (int)$query->get( 'draw', 0 );
+        $limit     = (int)$query->get( 'length', 10 );
+        $offset    = (int)$query->get( 'start', 0 );
+        $orderby   = $query->all()['columns'][ $query->all()['order'][0]['column'] ?? 0 ]['data'] ?? self::DEFAULT_LIST_ORDERBY_FIELD;
+        $direction = $query->all()['order'][0]['dir'] ?? self::DEFAULT_LIST_ORDERBY_DIRECTION;
 
         return
         [
@@ -102,7 +99,7 @@ class ApiUserController extends AbstractController
             $limit,
             $offset,
             $orderby,
-            $direction
+            $direction,
         ];
     }
 
