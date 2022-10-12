@@ -61,6 +61,7 @@ class Post
         min: 2,
         max: 128
     )]
+    #[Assert\Regex( '/^[A-Za-z0-9\'\.\-\s]+$/' )]
     #[Groups( [ 'list', 'item' ] )]
     private ?string $title = null;
 

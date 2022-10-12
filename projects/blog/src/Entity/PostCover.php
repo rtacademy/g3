@@ -61,6 +61,11 @@ class PostCover
     private ?string $filename = null;
 
     #[ORM\Column( type: Types::STRING, length: 64, nullable: true )]
+    #[Assert\Length(
+        min: 2,
+        max: 64
+    )]
+    #[Assert\Regex( '/^[A-Za-z0-9\'\.\-\s]+$/' )]
     #[Groups( [ 'list', 'item' ] )]
     private ?string $title = null;
 

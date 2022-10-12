@@ -56,6 +56,10 @@ class PostComment
 
     #[ORM\Column( type: Types::STRING, length: 255 )]
     #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 2,
+        max: 255
+    )]
     #[Groups( [ 'list', 'item' ] )]
     private ?string $comment = null;
 

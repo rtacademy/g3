@@ -85,6 +85,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column( type: Types::STRING, length: 64 )]
     #[Assert\NotBlank]
+    #[Assert\Regex( '/^[A-Za-z\'\.\-\s]+$/' )]
     #[Assert\Length(
         min: 2,
         max: 64
@@ -94,6 +95,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column( type: Types::STRING, length: 64 )]
     #[Assert\NotBlank]
+    #[Assert\Regex( '/^[A-Za-z\'\.\-\s]+$/' )]
     #[Assert\Length(
         min: 2,
         max: 64

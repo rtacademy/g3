@@ -59,6 +59,7 @@ class PostCategory
         min: 2,
         max: 64
     )]
+    #[Assert\Regex( '/^[A-Za-z0-9\'\.\-\s]+$/' )]
     #[Groups( [ 'list', 'item' ] )]
     private ?string $title = null;
 
