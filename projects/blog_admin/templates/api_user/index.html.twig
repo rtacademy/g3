@@ -2,6 +2,11 @@
 
 {% block title %}API Users | {% endblock %}
 
+{% block head_css %}
+<link href="{{ asset('/assets/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('/assets/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
 {% block body %}
 <div class="container-fluid">
     <div class="row">
@@ -17,7 +22,25 @@
         </div>
     </div>
     <div class="row">
-
+        <table id="table" class="table w-100 nowrap">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Token</th>
+                <th>Created Date</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+        </table>
     </div>
 </div>
+{% endblock %}
+
+{% block body_js %}
+<script src="{{ asset('/assets/vendor/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('/assets/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
+<script src="{{ asset('/assets/vendor/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('/assets/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js') }}"></script>
+
+<script src="{{ asset('/assets/js/api_user/index.js') }}"></script>
 {% endblock %}

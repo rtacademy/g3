@@ -9,6 +9,7 @@
     <script src="{{ asset('/assets/js/hyper-config.js') }}"></script>
     <link href="{{ asset('/assets/css/app-saas.min.css') }}" rel="stylesheet" type="text/css" id="app-style" />
     <link href="{{ asset('/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+    {% block head_css %}{% endblock %}
 </head>
 <body>
 <div class="wrapper">
@@ -84,6 +85,6 @@
 <script src="{{ asset('/assets/vendor/daterangepicker/moment.min.js') }}"></script>
 <script src="{{ asset('/assets/vendor/daterangepicker/daterangepicker.js') }}"></script>
 <script src="{{ asset('/assets/js/app.min.js') }}"></script>
-
+{% block body_js %}{% endblock %}
 </body>
 </html>

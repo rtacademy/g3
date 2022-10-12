@@ -125,7 +125,7 @@ VALUES
 
 
 INSERT INTO
-    post_comment (user_id, post_id, created_date, comment)
+    post_comment (author_id, post_id, created_date, comment)
 VALUES
     ( (floor(1+rand()*5)), (floor(1+rand()*12)), timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'Лорем ипсум долор сит амет, ад сит цаусае волуптатум, сеа аудиам санцтус те. Меи те постулант торяуатос дефинитионес.' ),
     ( (floor(1+rand()*5)), (floor(1+rand()*12)), timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'Виртуте перципитур мел ет, ерант ерудити медиоцрем яуи ет? Яуо ин видиссе вулпутате, импетус оцурререт реферрентур еам цу.' ),
@@ -160,6 +160,45 @@ VALUES
     ( (floor(1+rand()*5)), (floor(1+rand()*12)), timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'Ех еум хинц латине десеруиссе, ест легере дицтас фуиссет еа! Еи нонумес волутпат дефиниебас цум. Солет?' );
 
 INSERT INTO
-    api_user (token)
+    api_user (token, created_date, status)
 VALUES
-    ('1SEkpnyDplN0DVqvRkgcRur6HKmg7TGahW3MF3RkirOIuuX3tzFlpU7f5IbUhFPFWtH21KQG3XzRMP9CnVbyPWiCWiJ4HYaDRhL3y955h7XByl7ZaNXIdmiuYAaBZcjM');
+    ('1SEkpnyDplN0DVqvRkgcRur6HKmg7TGahW3MF3RkirOIuuX3tzFlpU7f5IbUhFPFWtH21KQG3XzRMP9CnVbyPWiCWiJ4HYaDRhL3y955h7XByl7ZaNXIdmiuYAaBZcjM', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('rMgcLRvTqL4ZPPRoTHiK4rNtTgwPOrvQFLRmygWz4quxU1IyfFi3oNG1u96JSLwVaFAF3WcWu44XcDVv7dvV66qXeksjHtYDERsmT3x5wIgAO35mpnijUYZJVaRX35wt', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('NandBQ3TsA2OtuFEdErwZw56yeBFAOdqioiiXdQk5MJjVRXMGXFwuDfW0NGpcZWkd2tiQkCbSPJoQiLhOgzqxNftHWkKd2KXzKwho6nTikSKNemju2VJw7wVu2iarEcg', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'disabled'),
+    ('aMMo4UgmGRu9a90CCPqAtoWZed2Iu0K3EhPj9BwM0BkQjIEq6BFrOryMCGIwkt7w8psoFAm7wfc4J4rnPSyZA7CotyL6bxxAP701lgtIcXm9TiG1BBezKpOCQAPzETum', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('aA7rBhY2EQNdPMXqI0gS6I88tj72oVb44XmFl4o8hi3SXb8cNGQ83C3PwNtrLdho5LBB8H1zajU5fVascvSMyAjnOlB2uwd8EpllrIzOtW1xmObrWZ0lL4rzLbNC8qp5', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('XuwCNfMVjxgi5Gr3he8fbngEpjLzA4IGmqrjaFwKLM7rx9jLCGmMA4WcsxEZ77r5BaLUfzLSIIH5l8FYqa0Wqfi4K0vHKXnBxAEBf8L579JYxJmqtQYvUJQJRVpk5R2M', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('PvDfZqXdfNUFqIB85wAwPKcB55dmd8Z6e2QaN0KoUdRGDYrONH0ma2mAu4YvHZURePRWekaapt8XGxm1puXhDaQMmi5tJroGFDWiJHZJ4Zpze6FxNxMzWRunGzKiOb19', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('dKkDimtncerNs1X7PT4mAYSJpwSUNJyDdK985yF4RofJtTtEqLhXh56rouVQ0IvSmYdXDKFEwp8VTzEmxWojv4irQ6WbWWYZQu2a2rt7ARvmTBHfIi4NQq9adJGQIvUZ', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('2Caw5Xu32Rdfz3SVcGse8tU1e9RoNltJXvozOcH3gLJuPKY26svx7tThUPJUecVrJWdMkZBOLTcunBnlNdHdTdIvgQnNgtXLcv8i0LW2aqAjT8Xw6zZPegSQEUvHxcmd', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'disabled'),
+    ('npT3IXwq05TbIoJpmhO51d1RVWNa1wV7ho4p9XKa6xQxxxMQrDBsPjGFJEvCK5PoUkptX67uyYAlxOWPvpyxqKKfe7E8mF5dQiT7ENs7TwVeTvJv8loGqYPRcIvI3Ts0', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('HbETn4d0iqDfxaUvij1sSPtQbX1DuBXCpwlKj837z7QkdhIGazvHRYNTQWsSiqGh1zVFUuG6f7Z3Y8PjRQUbI1zJkgGaGX9zAXRdbNDgMiMHUeUwim6GEbjK9Jm711Fm', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('X8DI1Uq67iIVOSWZqN4aRBAKSDAtd5nKeomnub5cpnTU0wXVvcucMXPTtnZLNqBuKaMWzyjYhl2cvfZj7NeFcPxGfwgIoku7JRIIFMlD4HL2YTFl3ZuOIP32UFX3iikJ', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('pLOpOEHTcSMWRwGfB5yjcaKNR4OJcBWTWuzx08bbdnXTxSevtdIZjj4Wj8HA7IoTYwEMk6F5dvzimw3ryRO9YFMORWP4KQvlBb0NHizewGyeKQEOpTxTTH94HQEUxQPs', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('Iv4GXxyTEQfBuWIJKETScAnadmey5OXMJMJT3hJT1b5q5md7VLFuvQK3WVjxqMPXTJZq8zG3axLv5GFiEUUqozCLNbOjkShSgOwuWKZt1AyRPT6o0GaxQD1yw5ThTBYh', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('qW1WOelrS8sbg46Lqjg5fPsOzML3hHc8Qk60zPKBZRcqxShcBMyLvvisNaTSvHCziJWxBoEhwqtu9nSAAVQuw93rYPNzAbaEkUwoKyHeARXkSdZl6WyOd0bvfLW1BnzT', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('xeD1KvjKG3eA2QMfsK6ENqbcij8CofEj5x9aGuVtpANXCdkuGRjrAlzApWHJVYgd5S6C5UcDBZOYOm9BOFkLtxVyIObOCFR09QNgZqbV3BC2qy0Hup4KQBVu5LgexTCp', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('wVqfw5TFy0AE7wddH5Q3pqKOD3Y9SsmP8QUbwmuBpr0t6UB4w0w1py4WTsvp4NUrb247xRV9fKDRworZ6HTlm27GY3HQsubcICSop0AS5js1eWBIaH3Qd4k1SO9Ef6eH', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'disabled'),
+    ('C7Mad0lFjJXH9DKJgk9W3qjjJY304eQCmCdlcGZJsWKHzl5w2Xdiw0i1vEiE3GdrW7XYY4yE2lIvIjg0LnxlxBXgMy7KLoi9VFj6Djlf5xfqT25WDchhpdOhVkEQopVF', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('pcJ3CqrGPxetKlNW492idBFJCANtSJIqeYa1iU1V8AtrqbpgkjYA2knqxJpJSGhVlbJKkELZfTWt2aDjM5titH4mhpB3zNyxF4vYBgjo8XvdEGotKT1zXfatmekcnnQn', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('OEgeFhs80GolSEQdgEZuopnOT0VR9ETKdJDygb4Ol8cMiYD6fz7JIbd2zp1QRBDb2Nthzqhlv3d5yQDUWA3PEywvv8bmxaP2GVXrqtEJsf7m4PH5p9TnWy0BzksG2SpU', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('l83gjWF77Ge4Wm6mZgixWpNXLrUlh9r3I7rswZ54dJkTjjnGzRa00rf5A6SSikvwoyb2IyNB8BnnD17a8rXAiHKGD2buCX3i3QBiz6sSiWXmFUGoFiFCHwDvqLsmxW9x', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('hPMoAG7cYURMJz8wPQ2x2L2PbLiQmgcxHWw2S36rl7aXgfeGVKtI8x69efRO6m9PfBy0rSBoPV6s7iVDxbVuZUehodMw0gC9YXmhW0WwN7DyMOr5VBQRG8Vddd2SuMgh', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('Fv0JJsVMBYMsexLM3n6GDxNNzizNTQAC0h7CUCoqfnpYi4OhgSnM1nUDa20egmmhJk0NErUVBRmvrV8cma7iYjdhMviFTpus4ax0BBfInL5TfhDj89zEaLlWWKIudcl9', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'disabled'),
+    ('0ndzVCv13cLwByuRDmPwdgwB9YxZ6CLu73HDR1z2hGzITN9h2uoUTXZU3uAE3ISQ6Hey7p2iKnNkOFEPsJGl6JoCmag1mdBnTr8oiQRR3mQ6UmVMgn8OBr9Mj3f1LtkB', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('x4m6UmhcL1w7Lxe1gv5zBr28OVy57Bzwirbyk8i4KLdH4LxZuQcVB6AyK8wkLinVo9kRcJaczPWtnDSn7cKWZJ2if9loELwSYzEtlS0CBHAD1bGPwe3ynNg7Bn8MF8DV', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('YQy5ALKvWBwjpyldwSpL3oLuv8X6KxLp7r0IXynCpKdM83rQ56W8P2E3KnQD0ntj6cPmQi7yV81a6lBFtj5TGJWGkOQYEt8j6YaRDRzHYRrAV3pZYbLbpE3Edqcf4rsE', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('FV8vJgCUUL23EZxLwJgY121vZFbYGjVBAQQQ66Ahi8gMMQWqUOG8QZIVT6kMGpA0ZjgHy137zctnvydlFpXg7GZ9s4aQcSTicOZnrhVt15MTqujUiGYE5eYOItXyYD12', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('2RVRuQJ6mcXgTjwVjsOps568l6vrK8UCi2nLsOX9Nt1VxR8bxYhKszGuxt1b0oPKOG7VxfDnvxHe6XGtAepDjlubAmmF7QtyZ1PGgTX9n01RSap7lRDtVg0bCTnWDh7X', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('TigLmT8LJ2XtO9bdFwNKU1N1TXaJvrlN02inmjR6lFkpKrPeSoowrDJhopMRXGf6s3q9PYPGMUGKX9yD2FzW9scksOqzbVamsqImDeLwEOORZ4tjBswNeU4q3bP55TSs', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'disabled'),
+    ('FdX9jS1CXwtCIv7SYVBYr7dF3R6HCqibpjodjZDdhJWN4Tsjvj1XSNFeNZBosKNM6NR7dCAVXBVMqoxN93AK7PZ2fdkJGWqrkvXYYEoXqy78jF2AgrBjSAnbpVPsgL4i', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('oOrhIQ5mHKdAByJKMK9PmvalZg6ahsPAdXwTn2nTp4R4HHytcwryf8NhCH4T9VIzbZghqpP2e3xtIseDvdqkMJOLx142jy9q4K63vT2D8MC0V21H8cPQZnpKEGYlTDBD', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('CVtxQCiWeI9libU9D95VzoplDulqZZuqIEtFwqdlTCgbAuAW8HQLb68U1RBboDyqruZgiGSq4Hwl3a8KvqxPRJRDRPhrOHBg5lhD3CyArL5mYYXwLdiSL7qX9FCsoQAA', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('eBHBWyoyEd1kjbJrIzosYFROXKo7m83qd0OLGh5ogIEpp6VUDDbmc2NvggU3nYB0sTMVuz7uZimCe1uifgXA7jtuIohRAr9XmVOKswmjUtU22fsnTNNOWEzjZUBXjYmT', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('J5TGahSlGWrV3mfl5CsfQ3aEqWJ2imEErnh0TS7Adn8yFBspRTz1mVQN7caBF9fCx6V4xoapb5KFeqHWrPrIcFT05BG1J2wpjxLPwgBZKm4ehmzrvDZ7ctR5Jka6Eotb', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('rYiB4hs0RDWGat3VN8pN9ZfspGXWpcfsw5iceC04VWVI0ZVCBGPsBAuM9Ac0yqQlgL8v2AbeogplO90tt6SP79NeZ4fiM5s0E0w9AP1JQxAZSUxhbG79tfcfee3Kro8d', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('o6mOoUhkMD3u5a9LtlNr7XmsglixDyRqJBbyOTX29dmVkcB2pQCcseJIKrxkP071rCIydoNgvSLX8gTkXSYlJP8kInaSLwcuutFSApyDmwDM18JVlC4NzxPVw45dtOKp', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('w8ukoPyLxTSqjCsp1QrIu3VOsNp5Quj7vsBJzCuOfHt170KdzhM13GjjgPn8msbR2PtsTlFNcqJQlrQ7bZkR0VMSj56ZUuSADBBLWs7eKlPazi8CZv8Jdz7ugD7gAUZE', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('vMGB3CzuTS3Sw6Tf8SmD5jQZr5pzWBrYfw7kTgts2wA7UgStTNvSMry8lUK4mBF5lIkhaah2AGBSKbcnOKPkLiMkaP5QYufvekb9rwNTQxzh1h0CQl4Tdtbc9KDUW5GX', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled'),
+    ('Bu6ZOVlipP2KQ0fL0hybBQq6u6MFw3wjbzSEbqEfep5ZClO9IKD5Wf9sKMjHTUsfhLfOnPU344FbZ1KDhFHJVtuMgFkKufJlpaYZH3RvV0D00PcDOrGTyGgGav7GHY8f', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'disabled'),
+    ('AfJcKRVQmWfKXJu0xmDSOxfKC8xqBp6oMhbevb6EHjXCTP7q6xPXsjVbHNxSTpLdTqe51iPZvbg0xtfpnDZbwlhAPb8QeYm5C1nxze3UwiYvrwDeYEu3YxRWRs3RCsiU', timestampadd(second, floor(rand() * timestampdiff(second, '2022-06-01', now())), '2022-06-01'), 'enabled');

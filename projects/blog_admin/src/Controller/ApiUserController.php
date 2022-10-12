@@ -1,14 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Repository\ApiUserRepository;
+use PhpParser\Node\Expr\Cast\Object_;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ApiUserController extends AbstractController
 {
+    protected const DEFAULT_LIST_ORDERBY_FIELD = 'id';
+    protected const DEFAULT_LIST_ORDERBY_DIRECTION = 'asc';
+
     private ApiUserRepository $apiUserRepository;
 
     public function __construct( ApiUserRepository $apiUserRepository )
@@ -26,30 +33,87 @@ class ApiUserController extends AbstractController
     }
 
     #[Route(
-        '/api/user/list/orderby/{orderby<[a-z\_]+>}/direction/{direction<asc|desc>}/offset/{offset<[0-9]+>}',
+        '/api/user/list',
         name: 'api_users_list_all',
         methods: [ 'GET' ]
     )]
-    public function list( string $orderby, string $direction, int $offset ): Response
+    public function list( Request $request ): Response
     {
+        [
+            $draw,
+            $limit,
+            $offset,
+            $orderby,
+            $direction
+        ] = $this->_getListData( $request->query );
+
+        $criteria = [];
+
         /** @var \App\Entity\ApiUser[] $apiUsers */
         $apiUsers = $this->apiUserRepository->findBy(
-            [],
+            $criteria,
             [ $orderby => $direction ],
-            10,
+            $limit,
             $offset
         );
 
+        $apiUsersTotal = $this->apiUserRepository->count( $criteria );
+
         return $this->json(
-            array_map(
-                static fn( $apiUser ) =>
-                [
-                    'id'    => $apiUser->getId(),
-                    'token' => $apiUser->getToken(),
-                ],
-                $apiUsers
-            )
+            [
+                'data'            =>
+                    array_map(
+                        fn( $apiUser ) =>
+                        [
+                            'id'           => $apiUser->getId(),
+                            'token'        => $this->_hideToken( $apiUser->getToken() ),
+                            'created_date' => $apiUser->getCreatedDate()->format( 'c' ),
+                            'status'       => $apiUser->getStatus(),
+                        ],
+                        $apiUsers
+                    ),
+                'recordsTotal'    => $apiUsersTotal,
+                'recordsFiltered' => $apiUsersTotal,
+                'draw'            => $draw,
+            ]
         );
+    }
+
+    /**
+     * @param Object $query
+     *
+     * @return array
+     */
+    protected function _getListData( Object $query ) : array
+    {
+        $draw = (int)$query->get( 'draw', 0 );
+        $limit = (int)$query->get( 'length', 10 );
+        $offset = (int)$query->get( 'start', 0 );
+
+        $tempColumns = $_GET['columns'];        // TODO
+        $tempOrder = $_GET['order'];            // TODO
+
+        $orderby = $tempColumns[ $tempOrder[0]['column'] ?? 0 ]['data'] ?? self::DEFAULT_LIST_ORDERBY_FIELD;
+        $direction = $tempOrder[0]['dir'] ?? self::DEFAULT_LIST_ORDERBY_DIRECTION;
+
+        return
+        [
+            $draw,
+            $limit,
+            $offset,
+            $orderby,
+            $direction
+        ];
+    }
+
+    /**
+     * @param string $token
+     *
+     * @return string
+     */
+    protected function _hideToken( string $token ): string
+    {
+        return substr( $token, 0, 10 ) . '...' . substr( $token, -10 );
     }
 
     #[Route( '/api/user/view/{id<[0-9]+>}', name: 'api_users_view', methods: [ 'GET' ] )]
