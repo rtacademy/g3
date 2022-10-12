@@ -143,7 +143,6 @@ class ApiUserController extends AbstractController
         if( $form->isSubmitted() && $form->isValid() )
         {
             $apiUser = $form->getData();
-
             $entityManager = $doctrine->getManager();
             $entityManager->persist( $apiUser );
             $entityManager->flush();
@@ -162,7 +161,7 @@ class ApiUserController extends AbstractController
     }
 
     #[Route( '/api/user/edit/{id<[0-9]+>}', name: 'api_users_edit', methods: [ 'GET', 'POST' ] )]
-    public function edit( int $id ): Response
+    public function edit( int $id, Request $request, ManagerRegistry $doctrine ): Response
     {
         $apiUser = $this->apiUserRepository->findOneBy( [ 'id' => $id ] );
 
@@ -171,14 +170,26 @@ class ApiUserController extends AbstractController
             throw $this->createNotFoundException( 'API User #' . $id . ' not found' );
         }
 
-// TODO
-//        $apiUser->setName($content->name);
-//        $apiUser->setDescription($content->description);
-//        $this->apiUserRepository->flush();
+        $form    = $this->createForm( ApiUserType::class, $apiUser );
+        $form->handleRequest( $request );
+
+        if( $form->isSubmitted() && $form->isValid() )
+        {
+            $apiUser = $form->getData();
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist( $apiUser );
+            $entityManager->flush();
+
+            $this->addFlash( 'success', 'API User #' . $id . ' has been successfully updated.' );
+
+            return $this->redirectToRoute( 'api_users_list' );
+        }
 
         return $this->render(
             'api_user/edit.html.twig',
             [
+                'form'    => $form->createView(),
+                'apiUser' => $apiUser,
             ]
         );
     }
