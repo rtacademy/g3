@@ -195,17 +195,27 @@ class ApiUserController extends AbstractController
     }
 
     #[Route( '/api/user/delete/{id<[0-9]+>}', name: 'api_users_delete', methods: [ 'DELETE' ] )]
-    public function delete( int $id ): Response
+    public function delete( int $id, ManagerRegistry $doctrine ): Response
     {
         $apiUser = $this->apiUserRepository->findOneBy( [ 'id' => $id ] );
 
         if( !$apiUser )
         {
-            throw $this->createNotFoundException( 'API User #' . $id . ' not found' );
+            return $this->json(
+                [
+                    'error' => 'API User #' . $id . ' not found'
+                ]
+            );
         }
 
-// TODO
-//        $this->apiUserRepository->remove($apiUser);
-//        $this->apiUserRepository->flush();
+        $entityManager = $doctrine->getManager();
+        $entityManager->remove( $apiUser );
+        $entityManager->flush();
+
+        return $this->json(
+            [
+                'success' => 'API User #' . $id . ' has been successfully deleted.'
+            ]
+        );
     }
 }

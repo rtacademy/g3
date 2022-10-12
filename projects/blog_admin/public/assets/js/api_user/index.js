@@ -37,6 +37,32 @@ $( document ).ready( function()
                 {
                     'method'    : 'DELETE',
                     'url'       : $(this).data('url'),
+                    'dataType'  : 'json',
+                    'timeout'   : 60000,
+                    'error'     : function( jqXHR, textStatus, errorThrown )
+                    {
+                        $('.wrapper .content-page .content').prepend(
+                            `<div class="container-fluid mt-3">
+                                <div class="alert alert-danger">
+                                    Error: ${errorThrown}
+                                </div>
+                            </div>`);
+                    },
+                    'success'   : function( data, textStatus, jqXHR )
+                    {
+                        const
+                            className = data.success ? 'success' : 'danger',
+                            message = data.success ? data.success : data.error
+
+                        $('.wrapper .content-page .content').prepend(
+                            `<div class="container-fluid mt-3">
+                                <div class="alert alert-${className}">
+                                    ${message}
+                                </div>
+                            </div>`);
+
+                        dataTable.draw();
+                    }
                 }
             );
         }
