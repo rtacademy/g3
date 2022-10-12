@@ -62,7 +62,7 @@ class PostComment
     #[ORM\ManyToOne( targetEntity: User::class )]
     #[ORM\JoinColumn( nullable: false )]
     #[Groups( [ 'list', 'item' ] )]
-    private ?User $user = null;
+    private ?User $author = null;
 
     #[ORM\ManyToOne( targetEntity: Post::class )]
     #[ORM\JoinColumn( nullable: false )]
@@ -98,14 +98,14 @@ class PostComment
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getAuthor(): ?User
     {
-        return $this->user;
+        return $this->author;
     }
 
-    public function setUser( ?User $user ): self
+    public function setAuthor( ?User $author ): self
     {
-        $this->user = $user;
+        $this->author = $author;
 
         return $this;
     }
