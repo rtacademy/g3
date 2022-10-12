@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\ApiUser;
+use App\Form\ApiUserType;
 use App\Repository\ApiUserRepository;
-use PhpParser\Node\Expr\Cast\Object_;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -90,8 +92,8 @@ class ApiUserController extends AbstractController
         $draw      = (int)$query->get( 'draw', 0 );
         $limit     = (int)$query->get( 'length', 10 );
         $offset    = (int)$query->get( 'start', 0 );
-        $orderby   = $query->all()['columns'][ $query->all()['order'][0]['column'] ?? 0 ]['data'] ?? self::DEFAULT_LIST_ORDERBY_FIELD;
-        $direction = $query->all()['order'][0]['dir'] ?? self::DEFAULT_LIST_ORDERBY_DIRECTION;
+        $orderby   = $query->all( 'columns' )[ $query->all( 'order' )[0]['column'] ?? 0 ]['data'] ?? self::DEFAULT_LIST_ORDERBY_FIELD;
+        $direction = $query->all( 'order' )[0]['dir'] ?? self::DEFAULT_LIST_ORDERBY_DIRECTION;
 
         return
         [
@@ -132,18 +134,29 @@ class ApiUserController extends AbstractController
     }
 
     #[Route( '/api/user/add', name: 'api_users_add', methods: [ 'GET', 'POST' ] )]
-    public function add(): Response
+    public function add( Request $request, ManagerRegistry $doctrine ): Response
     {
-// TODO
-//        $apiUser = new ApiUser();
-//        $apiUser->setName($request->request->get('name'));
-//        $apiUser->setDescription($request->request->get('description'));
-//        $this->apiUserRepository->persist($apiUser);
-//        $this->apiUserRepository->flush();
+        $apiUser = new ApiUser();
+        $form    = $this->createForm( ApiUserType::class, $apiUser );
+        $form->handleRequest( $request );
+
+        if( $form->isSubmitted() && $form->isValid() )
+        {
+            $apiUser = $form->getData();
+
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist( $apiUser );
+            $entityManager->flush();
+
+            $this->addFlash( 'success', 'API User has been successfully added.' );
+
+            return $this->redirectToRoute( 'api_users_list' );
+        }
 
         return $this->render(
             'api_user/add.html.twig',
             [
+                'form' => $form->createView(),
             ]
         );
     }

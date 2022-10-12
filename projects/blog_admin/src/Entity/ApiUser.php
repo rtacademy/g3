@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity( repositoryClass: ApiUserRepository::class )]
 #[ORM\Table(name: '`api_user`')]
+#[ORM\HasLifecycleCallbacks]
 #[UniqueEntity( 'token' )]
 class ApiUser implements UserInterface
 {
@@ -36,7 +37,6 @@ class ApiUser implements UserInterface
     private array $roles = [];
 
     #[ORM\Column( type: Types::DATETIME_MUTABLE )]
-    #[Assert\NotBlank]
     #[Assert\Type( \DateTime::class )]
     #[Groups( [ 'list', 'item' ] )]
     private ?\DateTimeInterface $created_date = null;
@@ -116,5 +116,11 @@ class ApiUser implements UserInterface
         $this->status = $status;
 
         return $this;
+    }
+
+    #[ORM\PrePersist]
+    public function onPrePersist() : void
+    {
+        $this->created_date = new \DateTime('now');
     }
 }
