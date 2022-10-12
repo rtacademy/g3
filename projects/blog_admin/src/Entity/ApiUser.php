@@ -119,8 +119,8 @@ class ApiUser implements UserInterface
     }
 
     #[ORM\PrePersist]
-    public function onPrePersist() : void
+    public function onPrePersist(): void
     {
-        $this->created_date = new \DateTime('now');
+        $this->created_date = new \DateTime( 'now' );
     }
 }

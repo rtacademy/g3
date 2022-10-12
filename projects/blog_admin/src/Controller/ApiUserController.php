@@ -29,17 +29,10 @@ class ApiUserController extends AbstractController
     #[Route( '/api/user', name: 'api_users_list', methods: [ 'GET' ] )]
     public function index(): Response
     {
-        return $this->render(
-            'api_user/index.html.twig',
-            []
-        );
+        return $this->render( 'api_user/index.html.twig' );
     }
 
-    #[Route(
-        '/api/user/list',
-        name: 'api_users_list_all',
-        methods: [ 'GET' ]
-    )]
+    #[Route( '/api/user/list', name: 'api_users_list_all', methods: [ 'GET' ] )]
     public function list( Request $request ): Response
     {
         [
@@ -203,7 +196,7 @@ class ApiUserController extends AbstractController
         {
             return $this->json(
                 [
-                    'error' => 'API User #' . $id . ' not found'
+                    'error' => 'API User #' . $id . ' not found.'
                 ]
             );
         }

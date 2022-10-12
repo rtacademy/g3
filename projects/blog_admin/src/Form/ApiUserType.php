@@ -35,13 +35,13 @@ class ApiUserType extends AbstractType
                 'status',
                 ChoiceType::class,
                 [
-                    'choices' =>
+                    'choices'  =>
                     [
-                        'Enabled' => \App\Entity\ApiUser::STATUS_ENABLED,
+                        'Enabled'  => \App\Entity\ApiUser::STATUS_ENABLED,
                         'Disabled' => \App\Entity\ApiUser::STATUS_DISABLED,
                     ],
                     'required' => true,
-                    'label' => 'Status',
+                    'label'    => 'Status',
                     'help'     => 'Status of API User',
                 ]
             )
